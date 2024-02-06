@@ -16,7 +16,7 @@ To locate these samples, find the FtcRobotController module in the "Project/Andr
 Expand the following tree elements:
  FtcRobotController/java/org.firstinspires.ftc.robotcontroller/external/samples
 
-### Naming of Samples
+### Naming of Samples   
 
 To gain a better understanding of how the samples are organized, and how to interpret the
 naming system, it will help to understand the conventions that were used during their creation.
@@ -25,7 +25,7 @@ These conventions are described (in detail) in the sample_conventions.md file in
 
 To summarize: A range of different samples classes will reside in the java/external/samples.
 The class names will follow a naming convention which indicates the purpose of each class.
-The prefix of the name will be one of the following:
+The prefix of the name v  will be one of the following:
 
 Basic:  	This is a minimally functional OpMode used to illustrate the skeleton/structure
             of a particular style of OpMode.  These are bare bones examples.
