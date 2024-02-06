@@ -22,6 +22,9 @@ public class OmniOpMode extends LinearOpMode {
     private DcMotor rightDrive = null;
     private DcMotor leftDrive = null;
     private Servo droneLaunchServo;
+
+    int servoclockwise;
+    double servoPosition;
     //public float
 
     // The IMU sensor object
@@ -102,25 +105,21 @@ public class OmniOpMode extends LinearOpMode {
         parameters.loggingTag          = "IMU";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
-        //Drone launcher
-        private void droneLaunch () {
-            int servoclockwise;
-            double servoPosition;
-
-            if (gamepad1.y) {
-                droneLaunchServo.setPosition(1);
-            }
-            if (gamepad1.dpad_right) {
-                servoclockwise = 1;
-            } else if (gamepad1.dpad_left) {
-                servoclockwise = -1;
-            } else {
-                servoclockwise = 0;
-            }
-            servoPosition += 0.01 * servoclockwise;
-            droneLaunchServo.setPosition(servoPosition);
-            telemetry.addData("Servo Positgion", droneLaunchServo.getPosition());
-        }
     }
+    private void droneLaunch () {
 
+        if (gamepad1.y) {
+            droneLaunchServo.setPosition(1);
+        }
+        if (gamepad1.dpad_right) {
+            servoclockwise = 1;
+        } else if (gamepad1.dpad_left) {
+            servoclockwise = -1;
+        } else {
+            servoclockwise = 0;
+        }
+        servoPosition += 0.01 * servoclockwise;
+        droneLaunchServo.setPosition(servoPosition);
+        telemetry.addData("Servo Positgion", droneLaunchServo.getPosition());
+    }
 }
