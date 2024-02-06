@@ -23,9 +23,20 @@ public class OmniOpMode extends LinearOpMode {
     private DcMotor leftDrive = null;
     private Servo droneLaunchServo;
 
+    private Servo clawRotationLeft;
+
+    private Servo clawRotationRight;
+
+    private Servo clawLeft;
+
+    private Servo clawRight;
+
+
     int servoclockwise;
     double servoPosition;
     //public float
+
+
 
     // The IMU sensor object
     BNO055IMU imu;
