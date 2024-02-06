@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @TeleOp(name="Basic: Omni Linear OpMode", group="Linear Opmode")
-public class OmniOpMode extends LinearOpMode {
+public class RobotTeleOpOmniOpMode extends LinearOpMode {
     // TeleOp
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
@@ -21,26 +21,23 @@ public class OmniOpMode extends LinearOpMode {
     private DcMotor backDrive = null;
     private DcMotor rightDrive = null;
     private DcMotor leftDrive = null;
+    //drone launcher
     private Servo droneLaunchServo;
-
+    private int servoclockwise;
+    private double servoPosition;
+    //arm rotation
+    private Servo armRotationLeft;
+    private Servo armRotationRight;
+    // Possible claw rotation
     private Servo clawRotationLeft;
-
     private Servo clawRotationRight;
-
+    // intake opening
     private Servo clawLeft;
-
     private Servo clawRight;
-
-
-    int servoclockwise;
-    double servoPosition;
     //public float
-
-
 
     // The IMU sensor object
     BNO055IMU imu;
-
     // State used for updating telemetry
     Orientation angles;
     Acceleration gravity;
@@ -115,10 +112,8 @@ public class OmniOpMode extends LinearOpMode {
         parameters.loggingEnabled      = true;
         parameters.loggingTag          = "IMU";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-
     }
     private void droneLaunch () {
-
         if (gamepad1.y) {
             droneLaunchServo.setPosition(1);
         }
