@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.drivebase.HDrive;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -17,10 +19,10 @@ public class RobotTeleOpOmniOpMode extends LinearOpMode {
     // TeleOp
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor frontDrive = null;
-    private DcMotor backDrive = null;
-    private DcMotor rightDrive = null;
-    private DcMotor leftDrive = null;
+    private Motor frontDrive = null;
+    private Motor backDrive = null;
+    private Motor rightDrive = null;
+    private Motor leftDrive = null;
     //drone launcher
     private Servo droneLaunchServo;
     private int servoclockwise;
@@ -45,21 +47,24 @@ public class RobotTeleOpOmniOpMode extends LinearOpMode {
     @Override
     public void runOpMode() {
         //Drive
-        frontDrive = hardwareMap.get(DcMotor.class, "frontMotor");
-        backDrive = hardwareMap.get(DcMotor.class, "backMotor");
-        leftDrive = hardwareMap.get(DcMotor.class, "leftMotor");
-        rightDrive = hardwareMap.get(DcMotor.class, "rightMotor ");
+        frontDrive = hardwareMap.get(Motor.class, "frontMotor");
+        backDrive = hardwareMap.get(Motor.class, "backMotor");
+        leftDrive = hardwareMap.get(Motor.class, "leftMotor");
+        rightDrive = hardwareMap.get(Motor.class, "rightMotor ");
 
-        backDrive.setDirection(DcMotor.Direction.REVERSE);
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        frontDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        //backDrive.setDirection(Motor.Direction.REVERSE);
+        //leftDrive.setDirection(Motor.Direction.REVERSE);
+        //frontDrive.setDirection(Motor.Direction.FORWARD);
+        //rightDrive.setDirection(Motor.Direction.FORWARD);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
         runtime.reset();
+
+        HDrive xDrive = new HDrive(leftDrive, rightDrive,
+                backDrive, frontDrive);
 
         while (opModeIsActive()) {
             double max;
@@ -89,10 +94,10 @@ public class RobotTeleOpOmniOpMode extends LinearOpMode {
                 rightBackPower /= max;
             }
             // Send calculated power to wheels
-            frontDrive.setPower(leftFrontPower);
-            backDrive.setPower(rightFrontPower);
-            leftDrive.setPower(leftBackPower);
-            rightDrive.setPower(rightBackPower);
+            //frontDrive.setPower(leftFrontPower);
+            //backDrive.setPower(rightFrontPower);
+            //leftDrive.setPower(leftBackPower);
+            //rightDrive.setPower(rightBackPower);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
