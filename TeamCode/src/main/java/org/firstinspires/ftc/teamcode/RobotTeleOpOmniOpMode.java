@@ -2,20 +2,22 @@ package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.drivebase.HDrive;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-@TeleOp(name="Basic: Omni Linear OpMode", group="Linear Opmode")
+@TeleOp(name = "Basic: Omni Linear OpMode", group = "Linear Opmode")
 public class RobotTeleOpOmniOpMode extends LinearOpMode {
+    // State used for updating telemetry
+    Orientation angles;
+    Acceleration gravity;
     // TeleOp
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
@@ -23,6 +25,7 @@ public class RobotTeleOpOmniOpMode extends LinearOpMode {
     private Motor backDrive = null;
     private Motor rightDrive = null;
     private Motor leftDrive = null;
+    private IMU imu;
     //drone launcher
     private Servo droneLaunchServo;
     private int servoclockwise;
@@ -36,26 +39,30 @@ public class RobotTeleOpOmniOpMode extends LinearOpMode {
     // intake opening
     private Servo clawLeft;
     private Servo clawRight;
-    //public float
-
-    // The IMU sensor object
-    BNO055IMU imu;
-    // State used for updating telemetry
-    Orientation angles;
-    Acceleration gravity;
 
     @Override
     public void runOpMode() {
-        //Drive
         frontDrive = hardwareMap.get(Motor.class, "frontMotor");
         backDrive = hardwareMap.get(Motor.class, "backMotor");
         leftDrive = hardwareMap.get(Motor.class, "leftMotor");
         rightDrive = hardwareMap.get(Motor.class, "rightMotor ");
 
-        //backDrive.setDirection(Motor.Direction.REVERSE);
-        //leftDrive.setDirection(Motor.Direction.REVERSE);
-        //frontDrive.setDirection(Motor.Direction.FORWARD);
-        //rightDrive.setDirection(Motor.Direction.FORWARD);
+        backDrive.setInverted(true);
+        leftDrive.setInverted(true);
+        frontDrive.setInverted(false);
+        rightDrive.setInverted(false);
+
+        /*
+        TODO: determine which direction your control hub is facing
+        Look at this to determine the right direction
+        https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html
+         */
+
+        imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+        imu.initialize(parameters);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -63,62 +70,29 @@ public class RobotTeleOpOmniOpMode extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        HDrive xDrive = new HDrive(leftDrive, rightDrive,
-                backDrive, frontDrive);
+        // this drive base constructor is built for x-drive so it might not exactly work
+        // but it probably will
+        HDrive drive = new HDrive(frontDrive, rightDrive,
+                leftDrive, backDrive);
 
         while (opModeIsActive()) {
-            double max;
-
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
-            double axial = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-            double lateral = gamepad1.left_stick_x;
-            double yaw = gamepad1.right_stick_x;
+            double y = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
+            double x = gamepad1.left_stick_x;
+            double rx = gamepad1.right_stick_x;
+            double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-            // Combine the joystick requests for each axis-motion to determine each wheel's power.
-            // Set up a variable for each drive wheel to save the power level for telemetry.
-            double leftFrontPower = axial + lateral + yaw;
-            double rightFrontPower = axial - lateral - yaw;
-            double leftBackPower = axial - lateral + yaw;
-            double rightBackPower = axial + lateral - yaw;
+            // this should be your entire drive (probably)
+            drive.driveFieldCentric(x, y, rx, heading);
 
-            // Normalize the values so no wheel power exceeds 100%
-            // This ensures that the robot maintains the desired motion.
-            max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
-            max = Math.max(max, Math.abs(leftBackPower));
-            max = Math.max(max, Math.abs(rightBackPower));
 
-            if (max > 1.0) {
-                leftFrontPower /= max;
-                rightFrontPower /= max;
-                leftBackPower /= max;
-                rightBackPower /= max;
-            }
-            // Send calculated power to wheels
-            //frontDrive.setPower(leftFrontPower);
-            //backDrive.setPower(rightFrontPower);
-            //leftDrive.setPower(leftBackPower);
-            //rightDrive.setPower(rightBackPower);
-
-            // Show the elapsed game time and wheel power.
+            // Telemetry
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
-            telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
             telemetry.update();
         }
-
-        //IMU setup
-        // Set up the parameters with which we will use our IMU. Note that integration
-        // algorithm here just reports accelerations to the logcat log; it doesn't actually
-        // provide positional information.
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parameters.loggingEnabled      = true;
-        parameters.loggingTag          = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
     }
-    private void droneLaunch () {
+
+    private void droneLaunch() {
         if (gamepad1.y) {
             droneLaunchServo.setPosition(1);
         }
