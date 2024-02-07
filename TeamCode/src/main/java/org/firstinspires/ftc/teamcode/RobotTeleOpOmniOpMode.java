@@ -67,6 +67,7 @@ public class RobotTeleOpOmniOpMode extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
+        // Waits for the start of the teleoperated period
         waitForStart();
         runtime.reset();
 
@@ -83,19 +84,32 @@ public class RobotTeleOpOmniOpMode extends LinearOpMode {
             double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
             // this should be your entire drive (probably)
+            //Field-Centric
+            //For all types of holonomic drive you do this by calling the .driveFieldCentric() method that takes the gamepad inputs and converts them into directional values.
+            //Additionally, you include the reading for the heading in degrees.
+            //m_drive.driveFieldCentric(strafeSpeed, forwardSpeed, turn, heading);
+            //The heading argument is the current heading of the robot, usually from the IMU. Note that it is in degress here, not radians.
             drive.driveFieldCentric(x, y, rx, heading);
 
 
             // Telemetry
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
+
+            //drone launch??
+            if (gamepad1.y) {
+                droneLaunch();
+            }
+
+
+            //put in continuous rotation mode and then rotate (rotation in radians)
+
+
         }
     }
 
     private void droneLaunch() {
-        if (gamepad1.y) {
-            droneLaunchServo.setPosition(1);
-        }
+        droneLaunchServo.setPosition(1);
         if (gamepad1.dpad_right) {
             servoclockwise = 1;
         } else if (gamepad1.dpad_left) {
