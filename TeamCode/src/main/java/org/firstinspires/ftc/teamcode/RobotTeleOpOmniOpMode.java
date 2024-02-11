@@ -32,6 +32,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
     private int servoclockwise;
      @Override
      public void runOpMode() {
+         //defaulting all the controllers
+         Gamepad gamepad1 = new Gamepad();
+
          // Drive, dont move
          frontDrive = hardwareMap.get(Motor.class, "frontMotor");
          backDrive = hardwareMap.get(Motor.class, "backMotor");

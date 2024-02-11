@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Bot;
 
 //Omni h drive
 
@@ -17,7 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class RobotHDrive extends RobotTeleOpOmniOpMode {
+public class RobotHDrive extends ARobotT2 {
     private ElapsedTime runtime = new ElapsedTime();
     private Motor frontDrive = null;
     private Motor backDrive = null;
