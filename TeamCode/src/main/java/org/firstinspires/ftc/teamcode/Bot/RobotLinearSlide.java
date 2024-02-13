@@ -1,4 +1,11 @@
 package org.firstinspires.ftc.teamcode.Bot;
 
-public class RobotLinearSlide extends ARobotT2 {
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import com.arcrobotics.ftclib.hardware.motors.Motor;
+
+public class RobotLinearSlide extends RobotDroneLauncher {
+    public RobotLinearSlide (LinearOpMode opMode) {
+        super(opMode);
+    }
 }

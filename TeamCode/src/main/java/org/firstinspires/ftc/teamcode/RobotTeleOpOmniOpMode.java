@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+/*package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.drivebase.HDrive;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
@@ -33,7 +33,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
      @Override
      public void runOpMode() {
          //defaulting all the controllers
-         Gamepad gamepad1 = new Gamepad();
+         private Gamepad gamepad1;
 
          // Drive, dont move
          frontDrive = hardwareMap.get(Motor.class, "frontMotor");
@@ -52,7 +52,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
         https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html
          */
 
-         imu = hardwareMap.get(IMU.class, "imu");
+/*         imu = hardwareMap.get(IMU.class, "imu");
          IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                  RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                  RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
@@ -88,4 +88,4 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
      public void intake() {
 
      }
- }
+ } */

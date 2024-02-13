@@ -17,13 +17,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class RobotHDrive extends ARobotT2 {
+
+public class RobotHDrive extends RobotColorDetection {
     private ElapsedTime runtime = new ElapsedTime();
     private Motor frontDrive = null;
     private Motor backDrive = null;
     private Motor rightDrive = null;
     private Motor leftDrive = null;
     private IMU imu;
+
+    public RobotHDrive (LinearOpMode opMode){
+        super(opMode);
+    }
     public void HDrive() {
         frontDrive = hardwareMap.get(Motor.class, "frontMotor");
         backDrive = hardwareMap.get(Motor.class, "backMotor");
