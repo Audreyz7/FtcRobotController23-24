@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.RobotLog;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,6 +17,8 @@ import java.util.Date;
 public class ARobotBase extends LinearOpMode {
     public HardwareMap hwMap = null;
     public LinearOpMode opMode;
+    public Gamepad gamepad1;
+    public Gamepad gamepad2;
 
     OutputStreamWriter onLoopWriter;
 
@@ -35,6 +38,8 @@ public class ARobotBase extends LinearOpMode {
 
     public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
+        gamepad1 = hardwareMap.get(Gamepad.class, "gamepad1");
+        gamepad2 = hardwareMap.get(Gamepad.class, "gamepad1");
     }
 
     public void onLoop(String label){

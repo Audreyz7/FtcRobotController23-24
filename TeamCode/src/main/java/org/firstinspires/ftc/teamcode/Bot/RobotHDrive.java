@@ -4,36 +4,38 @@ package org.firstinspires.ftc.teamcode.Bot;
 
 import com.arcrobotics.ftclib.drivebase.HDrive;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-
-import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-public class RobotHDrive extends RobotColorDetection {
+public class RobotHDrive extends ARobotBase {
     private ElapsedTime runtime = new ElapsedTime();
-    private Motor frontDrive = null;
-    private Motor backDrive = null;
-    private Motor rightDrive = null;
-    private Motor leftDrive = null;
-    private IMU imu;
+    public Motor frontDrive;
+    public Motor backDrive;
+    public Motor rightDrive;
+    public Motor leftDrive;
+    public IMU imu;
 
     public RobotHDrive (LinearOpMode opMode){
         super(opMode);
     }
-    public void HDrive() {
+
+    @Override
+    public void init(HardwareMap ahwMa) {
+        super.init(ahwMa);
         frontDrive = hardwareMap.get(Motor.class, "frontMotor");
         backDrive = hardwareMap.get(Motor.class, "backMotor");
         leftDrive = hardwareMap.get(Motor.class, "leftMotor");
         rightDrive = hardwareMap.get(Motor.class, "rightMotor ");
+    }
+    public void HDrive() {
 
         backDrive.setInverted(true);
         leftDrive.setInverted(true);
@@ -60,14 +62,14 @@ public class RobotHDrive extends RobotColorDetection {
 
         // this drive base constructor is built for x-drive so it might not exactly work
         // but it probably will
-        HDrive drive = new HDrive(frontDrive, rightDrive,
-                leftDrive, backDrive);
+        HDrive drive = new HDrive(frontDrive, rightDrive, leftDrive, backDrive);
 
         while (opModeIsActive()) {
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
             double y = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
             double x = gamepad1.left_stick_x;
             double rx = gamepad1.right_stick_x;
+
             double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
             // this should be your entire drive (probably)
