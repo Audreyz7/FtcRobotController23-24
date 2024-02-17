@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.Bot;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.RobotLog;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,11 +12,9 @@ import java.util.Date;
 //Someone please help figure out what this function does other than telementry,
 // Some f
 
-public class ARobotBase extends LinearOpMode {
+public class ARobotBase{
     public HardwareMap hwMap = null;
     public LinearOpMode opMode;
-    public Gamepad gamepad1;
-    public Gamepad gamepad2;
 
     OutputStreamWriter onLoopWriter;
 
@@ -38,8 +34,6 @@ public class ARobotBase extends LinearOpMode {
 
     public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
-        gamepad1 = hardwareMap.get(Gamepad.class, "gamepad1");
-        gamepad2 = hardwareMap.get(Gamepad.class, "gamepad1");
     }
 
     public void onLoop(String label){
@@ -107,10 +101,5 @@ public class ARobotBase extends LinearOpMode {
 
     public void sleep(int milliseconds){
         sleep(milliseconds, "default sleep");
-    }
-
-    @Override
-    public void runOpMode() throws InterruptedException {
-
     }
 }

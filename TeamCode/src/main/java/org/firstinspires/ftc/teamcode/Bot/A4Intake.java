@@ -3,11 +3,12 @@ package org.firstinspires.ftc.teamcode.Bot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
+public class A4Intake extends A3LinearSlide{
+    private boolean clawLeftOpen = false;
+    private boolean clawRightOpen = false;
 
-public class RobotIntake extends RobotLinearSlide {
-    public int servoclockwise;
-    public double servoPosition;
     //arm rotation
     public Servo armRotationLeft;
     public Servo armRotationRight;
@@ -15,19 +16,16 @@ public class RobotIntake extends RobotLinearSlide {
     public Servo clawOpenLeft;
     public Servo clawOpenRight;
 
-
     //Change these variables for tuning
     public float clawPositionmax = 0;
     public float clawPositionmin = 0;
     public float armPositionmax = 0;
     public float armPositionmin = 0;
 
-    private boolean clawLeftOpen = false;
-    private boolean clawRightOpen = false;
     public float armStart = 0;
     public float clawStart = 0;
-    
-    public RobotIntake (LinearOpMode opMode) {
+
+    public A4Intake (LinearOpMode opMode) {
         super(opMode);
     }
 
@@ -43,27 +41,29 @@ public class RobotIntake extends RobotLinearSlide {
         armRotationLeft.setPosition(armStart);
     }
 
-    public void Intake () {
-        // Claw intake
-        if (gamepad2.left_bumper) {
+    public void clawLeftOpen(boolean left_bumper) {
+        if (left_bumper) {
             clawOpenLeft.setPosition(clawPositionmax);
             clawLeftOpen = true;
         }
-        if (gamepad2.right_bumper){
-            armRotationRight.setPosition(clawPositionmin);
-            clawRightOpen = true;
-        }
-        if (clawLeftOpen == true && gamepad2.left_bumper) {
+        if (clawLeftOpen && left_bumper) {
             clawOpenLeft.setPosition(clawPositionmin);
             clawLeftOpen = false;
         }
-        if (clawRightOpen == true && gamepad2.right_bumper) {
+    }
+
+    public void clawRightOpen(boolean right_bumper) {
+        if (right_bumper) {
+            clawOpenRight.setPosition(clawPositionmax);
+            clawRightOpen = true;
+        }
+        if (clawRightOpen && right_bumper) {
             clawOpenRight.setPosition(clawPositionmin);
             clawRightOpen = false;
         }
+    }
 
-        // Arm rotation
-        double position = gamepad2.right_stick_y;
+    public void ArmRotation (double position) {
         position = (position + 1 )/2;
         if (position >= armPositionmax) {
             armRotationLeft.setPosition(armPositionmax);
@@ -77,5 +77,13 @@ public class RobotIntake extends RobotLinearSlide {
             armRotationLeft.setPosition(position);
             armRotationRight.setPosition(position);
         }
+    }
+
+    public void aimClaw(boolean y) {
+
+    }
+
+    public void armPosition(boolean x) {
+
     }
 }

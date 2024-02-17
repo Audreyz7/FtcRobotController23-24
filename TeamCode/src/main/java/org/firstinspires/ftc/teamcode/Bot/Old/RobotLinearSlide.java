@@ -2,11 +2,14 @@ package org.firstinspires.ftc.teamcode.Bot;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
 
 public class RobotLinearSlide extends RobotDroneLauncher {
+    public Gamepad gamepad1;
+    public Gamepad gamepad2;
     public DcMotor leftViper;
     public DcMotor rightViper;
 

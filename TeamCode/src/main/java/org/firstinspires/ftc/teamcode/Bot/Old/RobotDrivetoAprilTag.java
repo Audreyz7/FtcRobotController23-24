@@ -16,6 +16,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 public class RobotDrivetoAprilTag extends RobotIntake {
 
     public RobotDrivetoAprilTag (LinearOpMode opMode) {
@@ -48,7 +50,8 @@ public class RobotDrivetoAprilTag extends RobotIntake {
 
     private Gamepad gamepad1;
 
-    @Override public void runOpMode()
+    //@Override
+    public void runOpMode()
     {
         boolean targetFound     = false;    // Set to true when an AprilTag target is detected
         double  drive           = 0;        // Desired forward power/speed (-1 to +1)
