@@ -4,12 +4,13 @@ import org.firstinspires.ftc.teamcode.Bot.A4Intake;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name = "Basic: Omni Linear OpMode", group = "Linear Opmode")
 public class TeleOpMode extends LinearOpMode{
     private A4Intake robot = new A4Intake(this);
-    public Gamepad gamepad1;
-    public Gamepad gamepad2;
+    private ElapsedTime runtime = new ElapsedTime();
+
     public int climbExtensionLeft = 0;
     public int climbExtensionRight = 0;
     public int climbRetractLeft = 0;
@@ -20,37 +21,49 @@ public class TeleOpMode extends LinearOpMode{
     public float DronePos = 0;
     public void runOpMode() throws InterruptedException {
         boolean isAuto = false;
-        /******Drive******/
-        double y1 = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-        double x1 = gamepad1.left_stick_x;
-        double rx1 = gamepad1.right_stick_x;
-        robot.handDriveFieldCentric(y1,x1,rx1);
-        /******Drone launch******/
-        if (gamepad1.a) {
-            robot.launchDrone(DronePos);
-        }
-        if (gamepad1.a && gamepad1.left_bumper) {
-            robot.droneReset(DroneOrg);
-        }
-        /******Viper extension*****/
-        double y2 = gamepad2.left_stick_y;
-        robot.extension(y2);
-        /******Claw******/
-        robot.clawLeftOpen(gamepad2.left_bumper);
-        robot.clawRightOpen(gamepad2.right_bumper);
-        /******Arm Rotation******/
-        double position = gamepad2.right_stick_y;
-        robot.ArmRotation(position);
-        /******Climb height*****/
-        robot.climbHeight(gamepad2.b, climbExtensionLeft,climbExtensionRight);
-        robot.climbRetract(gamepad2.a, climbRetractLeft, climbRetractRight);
-        /******Drive Optimizations******/
-        robot.positionLeftTag(gamepad1.x);
-        robot.positionCenterTag(gamepad1.y);
-        robot.positionRightTag(gamepad1.b);
-        /******Pixel Optimizations******/
-        robot.aimClaw(gamepad2.y);
-        /******Pixel Placement******/
 
+        // initializes all the hardware by chaining through the human centipede type inheritance you got here.
+        robot.init(hardwareMap);
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+        waitForStart();
+        runtime.reset();
+
+        while(opModeIsActive()) {
+            /******Drive******/
+            double y1 = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
+            double x1 = gamepad1.left_stick_x;
+            double rx1 = gamepad1.right_stick_x;
+            robot.handDriveFieldCentric(y1,x1,rx1);
+            /******Drone launch******/
+            if (gamepad1.a) {
+                robot.launchDrone(DronePos);
+            }
+            if (gamepad1.a && gamepad1.left_bumper) {
+                robot.droneReset(DroneOrg);
+            }
+            /******Viper extension*****/
+            double y2 = gamepad2.left_stick_y;
+            robot.extension(y2);
+            /******Claw******/
+            robot.clawLeftOpen(gamepad2.left_bumper);
+            robot.clawRightOpen(gamepad2.right_bumper);
+            /******Arm Rotation******/
+            double position = gamepad2.right_stick_y;
+            robot.ArmRotation(position);
+            /******Climb height*****/
+            robot.climbHeight(gamepad2.b, climbExtensionLeft,climbExtensionRight);
+            robot.climbRetract(gamepad2.a, climbRetractLeft, climbRetractRight);
+            /******Drive Optimizations******/
+            robot.positionLeftTag(gamepad1.x);
+            robot.positionCenterTag(gamepad1.y);
+            robot.positionRightTag(gamepad1.b);
+            /******Pixel Optimizations******/
+            robot.aimClaw(gamepad2.y);
+            /******Pixel Placement******/
+        }
+
+        // insert whatever de-initialization things you need to do when the game ends.
     }
 }

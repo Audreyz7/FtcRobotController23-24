@@ -13,11 +13,11 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.tel
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class A1HDrive extends ARobotBase {
-    private ElapsedTime runtime = new ElapsedTime();
     public Motor frontDrive;
     public Motor backDrive;
     public Motor rightDrive;
     public Motor leftDrive;
+    public HDrive drive;
     public IMU imu;
 
     public A1HDrive(LinearOpMode opMode) {
@@ -31,12 +31,6 @@ public class A1HDrive extends ARobotBase {
         backDrive = hwMap.get(Motor.class, "backDrive");
         rightDrive = hwMap.get(Motor.class, "rightMotor");
         leftDrive = hwMap.get(Motor.class, "leftDrive");
-    }
-
-    public void handDriveFieldCentric(double left_stick_y, double left_stick_x, double right_stick_x) {
-        double y = -left_stick_y;  // Note: pushing stick forward gives negative value
-        double x = left_stick_x;
-        double rx = right_stick_x;
 
         backDrive.setInverted(true);
         leftDrive.setInverted(true);
@@ -44,28 +38,34 @@ public class A1HDrive extends ARobotBase {
         rightDrive.setInverted(false);
 
         /*
-        TODO: determine which direction your control hub is facing
-        Look at this to determine the right direction
+        FIXME determine which direction your control hub is facing
+        FIXME determine which direction your control hub is facing
+        FIXME determine which direction your control hub is facing
+        FIXME determine which direction your control hub is facing
+        FIXME determine which direction your control hub is facing
+        FIXME determine which direction your control hub is facing
+        FIXME determine which direction your control hub is facing
+        FIXME determine which direction your control hub is facing
+        FIXME determine which direction your control hub is facing
+        FIXME determine which direction your control hub is facing
+        FIXME determine which direction your control hub is facing
+        FIXME determine which direction your control hub is facing
+
+        IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        Look at this to determine the right direction for your imu
         https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html
          */
-
         imu = hwMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         imu.initialize(parameters);
+        drive = new HDrive(frontDrive, rightDrive, leftDrive, backDrive);
+    }
 
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
-        //waitForStart(); Figure out what is wrong with this
-        runtime.reset();
-
-        HDrive drive = new HDrive(frontDrive, rightDrive, leftDrive, backDrive);
-
+    public void handDriveFieldCentric(double left_stick_y, double left_stick_x, double right_stick_x) {
         double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-
-        drive.driveFieldCentric(x, y, rx, heading);
+        drive.driveFieldCentric(left_stick_x, left_stick_y, right_stick_x, heading);
     }
 
     public void positionLeftTag(boolean x) {
