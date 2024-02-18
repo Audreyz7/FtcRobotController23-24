@@ -9,8 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Date;
-//Someone please help figure out what this function does other than telementry,
-// Some f
+
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class ARobotBase{
     public HardwareMap hwMap;
@@ -23,6 +25,8 @@ public class ARobotBase{
 
     public boolean isAuto = true;
 
+    Telemetry telemetry;
+
     public ARobotBase (LinearOpMode opMode) {
         this.opMode = opMode;
         try {
@@ -32,8 +36,10 @@ public class ARobotBase{
         }
     }
 
-    public void init(HardwareMap ahwMap) {
+
+    public void init(HardwareMap ahwMap, Telemetry opmode_telemetry) {
         hwMap = ahwMap;
+        telemetry = opmode_telemetry;
     }
 
     public void onLoop(String label){
@@ -43,6 +49,7 @@ public class ARobotBase{
     String lastOnLoopLabel = "";
     int onLoopTolerance = 400;
     public void onLoop(int interval, String label){
+        Telemetry telemetry;
         long start = System.currentTimeMillis();
         // TRICKY : DEBUG feature, please comment following block out before competition
 //        if (lastOnLoopFinished > 0 && start - lastOnLoopFinished > (interval + onLoopTolerance)){

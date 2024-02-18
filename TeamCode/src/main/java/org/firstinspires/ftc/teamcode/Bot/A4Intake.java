@@ -3,7 +3,8 @@ package org.firstinspires.ftc.teamcode.Bot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class    A4Intake extends A3LinearSlide{
     private boolean clawLeftOpen = false;
@@ -30,8 +31,8 @@ public class    A4Intake extends A3LinearSlide{
     }
 
    @Override
-    public void init(HardwareMap ahwMap){
-        super.init(ahwMap);
+    public void init(HardwareMap ahwMap, Telemetry opmode_telemetry){
+        super.init(ahwMap, opmode_telemetry);
         armRotationLeft = ahwMap.get(Servo.class, "armLeft");
         armRotationRight = ahwMap.get(Servo.class, "armRight");
         clawOpenLeft = ahwMap.get(Servo.class, "clawLeft");

@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class A1HDrive extends ARobotBase {
@@ -25,8 +25,8 @@ public class A1HDrive extends ARobotBase {
     }
 
     @Override
-    public void init(HardwareMap ahwMap) {
-        super.init(ahwMap);
+    public void init(HardwareMap ahwMap, Telemetry opmode_telemetry) {
+        super.init(ahwMap,opmode_telemetry);
         frontDrive = new Motor(ahwMap, "frontMotor");
         backDrive = new Motor(ahwMap, "backMotor");
         rightDrive = new Motor(ahwMap, "rightMotor");
