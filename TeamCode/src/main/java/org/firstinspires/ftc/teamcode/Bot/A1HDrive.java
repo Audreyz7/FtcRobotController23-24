@@ -25,12 +25,12 @@ public class A1HDrive extends ARobotBase {
     }
 
     @Override
-    public void init(HardwareMap hwMap) {
-        super.init(hwMap);
-        frontDrive = hwMap.get(Motor.class, "frontMotor");
-        backDrive = hwMap.get(Motor.class, "backDrive");
-        rightDrive = hwMap.get(Motor.class, "rightMotor");
-        leftDrive = hwMap.get(Motor.class, "leftDrive");
+    public void init(HardwareMap ahwMap) {
+        super.init(ahwMap);
+        frontDrive = new Motor(hwMap, "frontMotor");
+        backDrive = new Motor(hwMap, "backMotor");
+        rightDrive = new Motor(hwMap, "rightMotor");
+        leftDrive = new Motor(hwMap, "leftMotor");
 
         backDrive.setInverted(true);
         leftDrive.setInverted(true);
@@ -57,9 +57,10 @@ public class A1HDrive extends ARobotBase {
          */
         imu = hwMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.UsbFacingDirection.UP));
         imu.initialize(parameters);
+
         drive = new HDrive(frontDrive, rightDrive, leftDrive, backDrive);
     }
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Bot;
+/*package org.firstinspires.ftc.teamcode.Bot;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -84,7 +84,7 @@ public class RobotPixelDetection extends RobotColorDetection {
     /**
      * Function to add telemetry about TensorFlow Object Detection (TFOD) recognitions.
      */
-    private void telemetryTfod() {
+    /*private void telemetryTfod() {
 
         List<Recognition> currentRecognitions = tfod.getRecognitions();
         telemetry.addData("# Objects Detected", currentRecognitions.size());
@@ -101,4 +101,4 @@ public class RobotPixelDetection extends RobotColorDetection {
         }   // end for() loop
 
     }   // end method telemetryTfod()
-}
+}*/

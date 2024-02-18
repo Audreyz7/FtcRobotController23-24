@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Bot;
+/*package org.firstinspires.ftc.teamcode.Bot;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -77,7 +77,7 @@ public class RobotDrivetoAprilTag extends RobotIntake {
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);*/
 
-        if (USE_WEBCAM)
+        /*if (USE_WEBCAM)
             setManualExposure(6, 250);  // Use low exposure time to reduce motion blur
 
         // Wait for driver to press start
@@ -149,7 +149,7 @@ public class RobotDrivetoAprilTag extends RobotIntake {
      * Positive Y is strafe left
      * Positive Yaw is counter-clockwise
      */
-    public void moveRobot(double x, double y, double yaw) {
+    /*public void moveRobot(double x, double y, double yaw) {
         // Calculate wheel powers.
         double leftFrontPower    =  x -y -yaw;
         double rightFrontPower   =  x +y +yaw;
@@ -178,7 +178,7 @@ public class RobotDrivetoAprilTag extends RobotIntake {
     /**
      * Initialize the AprilTag processor.
      */
-    private void initAprilTag() {
+    /*private void initAprilTag() {
         // Create the AprilTag processor by using a builder.
         aprilTag = new AprilTagProcessor.Builder().build();
 
@@ -200,7 +200,7 @@ public class RobotDrivetoAprilTag extends RobotIntake {
      Manually set the camera gain and exposure.
      This can only be called AFTER calling initAprilTag(), and only works for Webcams;
     */
-    private void    setManualExposure(int exposureMS, int gain) {
+    /*private void    setManualExposure(int exposureMS, int gain) {
         // Wait for the camera to be open, then use the controls
 
         if (visionPortal == null) {
@@ -233,4 +233,4 @@ public class RobotDrivetoAprilTag extends RobotIntake {
             sleep(20);
         }
     }
-}
+}*/

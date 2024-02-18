@@ -3,8 +3,8 @@ import org.firstinspires.ftc.teamcode.Bot.A4Intake;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 @TeleOp(name = "Basic: Omni Linear OpMode", group = "Linear Opmode")
 public class TeleOpMode extends LinearOpMode{
@@ -22,48 +22,71 @@ public class TeleOpMode extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         boolean isAuto = false;
 
+        //telemetry.addLine("Hello?");
         // initializes all the hardware by chaining through the human centipede type inheritance you got here.
         robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
+        /******Make sure all devices connected******/
+        robot.getDroneServo();
+        robot.getLeftViper();
+        robot.getRightViper();
+        /*robot.getArmLeft();
+        robot.getArmRight();
+        robot.getClawLeft();
+        robot.getClawRight();*/
+
         telemetry.update();
 
         waitForStart();
         runtime.reset();
 
         while(opModeIsActive()) {
-            /******Drive******/
+            /******Drive******
             double y1 = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
             double x1 = gamepad1.left_stick_x;
             double rx1 = gamepad1.right_stick_x;
             robot.handDriveFieldCentric(y1,x1,rx1);
-            /******Drone launch******/
+            /******Drone launch******
             if (gamepad1.a) {
                 robot.launchDrone(DronePos);
             }
             if (gamepad1.a && gamepad1.left_bumper) {
                 robot.droneReset(DroneOrg);
             }
-            /******Viper extension*****/
+            /******Viper extension*****
             double y2 = gamepad2.left_stick_y;
             robot.extension(y2);
-            /******Claw******/
+            /******Claw******
             robot.clawLeftOpen(gamepad2.left_bumper);
             robot.clawRightOpen(gamepad2.right_bumper);
-            /******Arm Rotation******/
+            /******Arm Rotation******
             double position = gamepad2.right_stick_y;
             robot.ArmRotation(position);
-            /******Climb height*****/
+            /******Climb height*****
             robot.climbHeight(gamepad2.b, climbExtensionLeft,climbExtensionRight);
             robot.climbRetract(gamepad2.a, climbRetractLeft, climbRetractRight);
-            /******Drive Optimizations******/
+            /******Drive Optimizations******
             robot.positionLeftTag(gamepad1.x);
             robot.positionCenterTag(gamepad1.y);
             robot.positionRightTag(gamepad1.b);
-            /******Pixel Optimizations******/
+            /******Pixel Optimizations******
             robot.aimClaw(gamepad2.y);
-            /******Pixel Placement******/
+            /******Pixel Placement******
+            robot.xDistanceBoard();
+            /******Testing: Intake******
+            double r1 = gamepad1.right_stick_y;
+            double r2 = gamepad2.right_stick_y;
+            double l1 = gamepad1.left_stick_y;
+            double l2 = gamepad2.left_stick_y;
+            robot.testServos(r1,l1,r2,l2);
+            /******Testing: Linear Slides******
+            double leftY = gamepad1.left_stick_y;
+            robot.TestViper(leftY);
+            /******Testing: droneLauncher******/
+            double leftY = gamepad1.left_stick_y;
+            robot.testDroneLaunch(leftY);
+            /************/
         }
-
         // insert whatever de-initialization things you need to do when the game ends.
     }
 }

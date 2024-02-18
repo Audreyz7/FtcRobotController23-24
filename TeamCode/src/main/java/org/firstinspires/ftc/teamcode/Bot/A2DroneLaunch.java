@@ -16,7 +16,15 @@ public class A2DroneLaunch extends A1HDrive{
     @Override
     public void init(HardwareMap ahwMap){
         super.init(ahwMap);
-        this.droneLaunchServo = hwMap.get(Servo.class, "droneLauncher");
+        this.droneLaunchServo = ahwMap.get(Servo.class, "droneLauncher");
+    }
+
+    public void getDroneServo() {
+        telemetry.addData("DroneLaunch Initialized", droneLaunchServo.getConnectionInfo());
+    }
+    public void testDroneLaunch(double left_stick_y){
+        droneLaunchServo.setPosition(left_stick_y);
+        telemetry.addData("Drone Launch Position", droneLaunchServo.getPosition());
     }
 
     public void droneReset(double servoPositionorg) {

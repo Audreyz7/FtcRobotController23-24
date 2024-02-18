@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Bot;
+/*package org.firstinspires.ftc.teamcode.Bot;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -189,5 +189,5 @@ public class RobotColorDetection extends ARobotBase {
         double distance = (objectWidthInRealWorldUnits * focalLength) / width;
         return distance;
     }
-}
+}*/
 

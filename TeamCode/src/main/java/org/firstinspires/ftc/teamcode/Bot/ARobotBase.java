@@ -13,7 +13,7 @@ import java.util.Date;
 // Some f
 
 public class ARobotBase{
-    public HardwareMap hwMap = null;
+    public HardwareMap hwMap;
     public LinearOpMode opMode;
 
     OutputStreamWriter onLoopWriter;

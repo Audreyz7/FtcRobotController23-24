@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Bot;
+/*package org.firstinspires.ftc.teamcode.Bot;
 
 //Omni h drive
 
@@ -48,7 +48,7 @@ public class RobotHDrive extends ARobotBase {
         https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html
          */
 
-        imu = hardwareMap.get(IMU.class, "imu");
+        /*imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
@@ -76,4 +76,4 @@ public class RobotHDrive extends ARobotBase {
             drive.driveFieldCentric(x, y, rx, heading);
         }
     }
-}
+}*/

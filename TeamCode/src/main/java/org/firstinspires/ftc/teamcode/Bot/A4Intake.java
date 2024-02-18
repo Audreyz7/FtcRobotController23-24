@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
-public class A4Intake extends A3LinearSlide{
+public class    A4Intake extends A3LinearSlide{
     private boolean clawLeftOpen = false;
     private boolean clawRightOpen = false;
 
@@ -29,16 +29,43 @@ public class A4Intake extends A3LinearSlide{
         super(opMode);
     }
 
-    @Override
+   @Override
     public void init(HardwareMap ahwMap){
         super.init(ahwMap);
-        armRotationLeft = hwMap.get(Servo.class, "armRotation");
-        armRotationRight = hwMap.get(Servo.class, "armRotation");
-        clawOpenLeft = hwMap.get(Servo.class, "clawLeft");
-        clawOpenRight = hwMap.get(Servo.class, "clawRight");
+        armRotationLeft = ahwMap.get(Servo.class, "armLeft");
+        armRotationRight = ahwMap.get(Servo.class, "armRight");
+        clawOpenLeft = ahwMap.get(Servo.class, "clawLeft");
+        clawOpenRight = ahwMap.get(Servo.class, "clawRight");
 
-        armRotationRight.setPosition(armStart);
-        armRotationLeft.setPosition(armStart);
+        //armRotationRight.setPosition(armStart);
+        //armRotationLeft.setPosition(armStart);
+    }
+
+    public void testServos(double r1, double l1, double r2, double l2) {
+        armRotationLeft.setPosition(r1);
+        //telemetry.addData("Arm Left Position", armRotationLeft.getPosition());
+        armRotationRight.setPosition(l1);
+        telemetry.addData("Arm Right Position", armRotationRight.getPosition());
+        clawOpenLeft.setPosition(r2);
+        telemetry.addData("Claw left Position", clawOpenLeft.getPosition());
+        clawOpenRight.setPosition(l2);
+        telemetry.addData("Claw Right Position", clawOpenRight.getPosition());
+    }
+
+    public void getArmLeft() {
+        telemetry.addData("ArmLeft Initialized", armRotationLeft.getConnectionInfo());
+    }
+
+    public void getArmRight() {
+        telemetry.addData("ArmRight Initialized", armRotationRight.getConnectionInfo());
+    }
+
+    public void getClawLeft() {
+        telemetry.addData("ClawLeft Initialized", clawOpenLeft.getConnectionInfo());
+    }
+
+    public void getClawRight() {
+        telemetry.addData("clawRight Initialized", clawOpenRight.getConnectionInfo());
     }
 
     public void clawLeftOpen(boolean left_bumper) {

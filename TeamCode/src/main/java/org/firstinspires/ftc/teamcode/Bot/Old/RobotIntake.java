@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Bot;
+/*package org.firstinspires.ftc.teamcode.Bot;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -80,4 +80,4 @@ public class RobotIntake extends RobotLinearSlide {
             armRotationRight.setPosition(position);
         }
     }
-}
+}*/
