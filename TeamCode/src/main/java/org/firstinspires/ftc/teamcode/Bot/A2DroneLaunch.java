@@ -22,9 +22,6 @@ public class A2DroneLaunch extends A1HDrive{
 
     public void testDroneLaunch(double left_stick_y){
         droneLaunchServo.setPosition(left_stick_y);
-        //if (x) {
-                //telemetry.addData("Drone Launch Position", droneLaunchServo.getPosition());
-        //}
     }
 
     public void droneReset(double servoPositionorg) {
