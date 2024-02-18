@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry;
+//import com.acmerobotics.dashboard.telemetry;
 
 
 @TeleOp(name = "Basic: Omni Linear OpMode", group = "Linear Opmode")
@@ -23,7 +23,7 @@ public class TeleOpMode extends LinearOpMode{
     public double DroneOrg = 0;
     public float DronePos = 0;
     public void runOpMode() throws InterruptedException {
-        Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
+        //Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
         boolean isAuto = false;
 
         //telemetry.addLine("Hello?");
