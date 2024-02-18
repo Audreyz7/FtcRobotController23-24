@@ -17,6 +17,7 @@ public class A2DroneLaunch extends A1HDrive{
     @Override
     public void init(HardwareMap ahwMap, Telemetry opmode_telemetry){
         super.init(ahwMap,opmode_telemetry);
+        droneLaunchServo = ahwMap.get(Servo.class, "droneLauncher");
     }
 
     public void testDroneLaunch(double left_stick_y){
