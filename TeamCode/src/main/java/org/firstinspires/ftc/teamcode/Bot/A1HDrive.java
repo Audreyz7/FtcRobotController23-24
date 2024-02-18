@@ -27,10 +27,10 @@ public class A1HDrive extends ARobotBase {
     @Override
     public void init(HardwareMap ahwMap) {
         super.init(ahwMap);
-        frontDrive = new Motor(hwMap, "frontMotor");
-        backDrive = new Motor(hwMap, "backMotor");
-        rightDrive = new Motor(hwMap, "rightMotor");
-        leftDrive = new Motor(hwMap, "leftMotor");
+        frontDrive = new Motor(ahwMap, "frontMotor");
+        backDrive = new Motor(ahwMap, "backMotor");
+        rightDrive = new Motor(ahwMap, "rightMotor");
+        leftDrive = new Motor(ahwMap, "leftMotor");
 
         backDrive.setInverted(true);
         leftDrive.setInverted(true);
@@ -38,20 +38,6 @@ public class A1HDrive extends ARobotBase {
         rightDrive.setInverted(false);
 
         /*
-        FIXME determine which direction your control hub is facing
-        FIXME determine which direction your control hub is facing
-        FIXME determine which direction your control hub is facing
-        FIXME determine which direction your control hub is facing
-        FIXME determine which direction your control hub is facing
-        FIXME determine which direction your control hub is facing
-        FIXME determine which direction your control hub is facing
-        FIXME determine which direction your control hub is facing
-        FIXME determine which direction your control hub is facing
-        FIXME determine which direction your control hub is facing
-        FIXME determine which direction your control hub is facing
-        FIXME determine which direction your control hub is facing
-
-        IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         Look at this to determine the right direction for your imu
         https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html
          */

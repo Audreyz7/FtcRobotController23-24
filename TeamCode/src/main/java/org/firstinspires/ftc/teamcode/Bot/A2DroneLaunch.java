@@ -20,16 +20,17 @@ public class A2DroneLaunch extends A1HDrive{
     }
 
     public void getDroneServo() {
-        telemetry.addData("DroneLaunch Initialized", droneLaunchServo.getConnectionInfo());
+        telemetry.addData("DroneLaunch Initialized", droneLaunchServo.getPosition());
     }
-    public void testDroneLaunch(double left_stick_y){
+    public void testDroneLaunch(double left_stick_y, boolean x){
         droneLaunchServo.setPosition(left_stick_y);
-        telemetry.addData("Drone Launch Position", droneLaunchServo.getPosition());
+        if (x) {
+            telemetry.addData("Drone Launch Position", droneLaunchServo.getPosition());
+        }
     }
 
     public void droneReset(double servoPositionorg) {
         droneLaunchServo.setPosition(servoPositionorg);
-        telemetry.addData("Drone launch, status: reset", droneLaunchServo.getPosition());
     }
 
     public void launchDrone (float launchPosition) {
