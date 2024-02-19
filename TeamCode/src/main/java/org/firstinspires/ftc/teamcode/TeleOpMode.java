@@ -27,6 +27,7 @@ public class TeleOpMode extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         //Telemetry telemetry = new Telemetry;
         boolean isAuto = false;
+        boolean launcher = false;
 
         //telemetry.addLine("Hello?");
         // initializes all the hardware by chaining through the human centipede type inheritance you got here.
@@ -38,7 +39,6 @@ public class TeleOpMode extends LinearOpMode{
         waitForStart();
         runtime.reset();
 
-        robot.droneLaunchServo.setPosition(0.6);
         while(opModeIsActive()) {
             /******Drive******
             double y1 = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
@@ -49,11 +49,12 @@ public class TeleOpMode extends LinearOpMode{
             /******Drone launch******/
             if (gamepad1.a) {
                 robot.launchDrone(DronePos);
+                launcher = true;
             }
             if (gamepad1.a && gamepad1.left_bumper) {
                 robot.droneReset(DroneOrg);
             }
-            if (robot.launchDrone(DronePos)) {
+            if (launcher = true) {
                 telemetry.addLine("Drone Launched");
             }
             /******Viper extension*****

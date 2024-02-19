@@ -30,9 +30,8 @@ public class A2DroneLaunch extends A1HDrive{
         return true;
     }
 
-    public boolean launchDrone (double launchPosition) {
+    public void launchDrone (double launchPosition) {
         droneLaunchServo.setPosition(launchPosition);
-        return true;
     }
 }
 
