@@ -18,17 +18,14 @@ public class    A4Intake extends A3LinearSlide{
     public Servo clawOpenRight;
 
     //Change these variables for tuning
-    public double clawPositionmaxLeft = 0;
-    public double clawPositionmaxRight = 0.2;
-    public double clawPositionminLeft = 0;
-    public double clawPositionminRight = 1;
+    public double clawPositionmax= 0;
+    public double clawPositionmin = -1;
     public double armPositionmax = 0;
     public double armPositionmin = 0;
 
     public double armStartLeft = 0;
     public double armStartRight = 0;
-    public double clawStartLeft = 0;
-    public double clawStartRight = 1;
+    public double clawStart = 0;
 
     public A4Intake (LinearOpMode opMode) {
         super(opMode);
@@ -42,37 +39,37 @@ public class    A4Intake extends A3LinearSlide{
         clawOpenLeft = ahwMap.get(Servo.class, "clawLeft");
         clawOpenRight = ahwMap.get(Servo.class, "clawRight");
 
-        clawOpenLeft.setPosition(clawStartLeft);
-        clawOpenRight.setPosition(clawStartRight);
+        armRotationLeft.setDirection(Servo.Direction.REVERSE);
+        clawOpenLeft.setDirection(Servo.Direction.REVERSE);
+
+        clawOpenLeft.setPosition(clawStart);
+        clawOpenRight.setPosition(clawStart);
         //armRotationRight.setPosition(armStart);
         //armRotationLeft.setPosition(armStart);
     }
 
-    public void testServos(double r1, double l1, double r2, double l2) {
-        armRotationLeft.setPosition(r1);
-        armRotationRight.setPosition(l1);
-        clawOpenLeft.setPosition(r2);
-        clawOpenRight.setPosition(l2);
+    public void testServos(double r1) {
+        clawOpenLeft.setPosition(r1);
     }
 
     public void clawLeftOpen(boolean left_bumper) {
         if (left_bumper) {
-            clawOpenLeft.setPosition(clawPositionmaxLeft);
+            clawOpenLeft.setPosition(clawPositionmax);
             clawLeftOpen = true;
         }
         if (clawLeftOpen && left_bumper) {
-            clawOpenLeft.setPosition(clawPositionminLeft);
+            clawOpenLeft.setPosition(clawPositionmin);
             clawLeftOpen = false;
         }
     }
 
     public void clawRightOpen(boolean right_bumper) {
         if (right_bumper) {
-            clawOpenRight.setPosition(clawPositionmaxRight);
+            clawOpenRight.setPosition(clawPositionmax);
             clawRightOpen = true;
         }
         if (clawRightOpen && right_bumper) {
-            clawOpenRight.setPosition(clawPositionminRight);
+            clawOpenRight.setPosition(clawPositionmin);
             clawRightOpen = false;
         }
     }
