@@ -38,19 +38,17 @@ public class    A4Intake extends A3LinearSlide{
         clawOpenLeft = ahwMap.get(Servo.class, "clawLeft");
         clawOpenRight = ahwMap.get(Servo.class, "clawRight");
 
+        clawOpenRight.setPosition(1);
+        clawOpenLeft.setPosition(0);
         //armRotationRight.setPosition(armStart);
         //armRotationLeft.setPosition(armStart);
     }
 
     public void testServos(double r1, double l1, double r2, double l2) {
         armRotationLeft.setPosition(r1);
-        //telemetry.addData("Arm Left Position", armRotationLeft.getPosition());
         armRotationRight.setPosition(l1);
-        telemetry.addData("Arm Right Position", armRotationRight.getPosition());
         clawOpenLeft.setPosition(r2);
-        telemetry.addData("Claw left Position", clawOpenLeft.getPosition());
         clawOpenRight.setPosition(l2);
-        telemetry.addData("Claw Right Position", clawOpenRight.getPosition());
     }
 
     public void getArmLeft() {

@@ -38,32 +38,23 @@ public class TeleOpMode extends LinearOpMode{
         waitForStart();
         runtime.reset();
 
+        robot.droneLaunchServo.setPosition(0.6);
         while(opModeIsActive()) {
-            /*telemetry.addData("Drone Servo", robot.droneLaunchServo.getConnectionInfo());
-            telemetry.addData("Left Viper", robot.leftViper.getConnectionInfo());
-            telemetry.addData("Right Viper", robot.rightViper.getConnectionInfo());
-            telemetry.addData("Left arm", robot.armRotationLeft.getConnectionInfo());
-            telemetry.addData("Right arm", robot.armRotationRight.getConnectionInfo());
-            telemetry.addData("Clas left", robot.clawOpenLeft.getConnectionInfo());
-            telemetry.addData("Claw Right", robot.clawOpenRight.getConnectionInfo());
-            telemetry.update();
-
-            /******Drive******/
+            /******Drive******
             double y1 = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
             double x1 = gamepad1.left_stick_x;
             double rx1 = gamepad1.right_stick_x;
             robot.handDriveFieldCentric(y1,x1,rx1);
             telemetry.addLine("Drive initialized");
-            telemetry.update();
             /******Drone launch******/
             if (gamepad1.a) {
                 robot.launchDrone(DronePos);
-                telemetry.addData("Drone Launched", robot.droneLaunchServo.getPosition());
-                telemetry.update();
             }
             if (gamepad1.a && gamepad1.left_bumper) {
                 robot.droneReset(DroneOrg);
-                telemetry.addData("Drone reset", robot.droneLaunchServo.getPosition());
+            }
+            if (robot.launchDrone(DronePos)) {
+                telemetry.addLine("Drone Launched");
             }
             /******Viper extension*****
             double y2 = -gamepad2.left_stick_y;
@@ -88,12 +79,17 @@ public class TeleOpMode extends LinearOpMode{
             /******Pixel Placement******
             robot.xDistanceBoard();
             /******Testing: Intake******
-            double r1 = gamepad1.right_stick_x;
-            double r2 = -gamepad2.right_stick_y;
-            double l1 = gamepad1.left_stick_x;
+            robot.clawOpenRight.setPosition(1);
+            double r1 = gamepad1.right_stick_y;
+            double r2 = -gamepad2.right_stick_y-1;
+            double l1 = gamepad1.left_stick_y;
             double l2 = -gamepad2.left_stick_y;
             robot.testServos(r1,l1,r2,l2);
-            /******Testing: Linear Slides******/
+            telemetry.addData("Arm Left Position", robot.armRotationLeft.getPosition());
+            telemetry.addData("Arm Right Position", robot.armRotationRight.getPosition());
+            telemetry.addData("Claw left Position", robot.clawOpenLeft.getPosition());
+            telemetry.addData("Claw Right Position", robot.clawOpenRight.getPosition());
+            /******Testing: Linear Slides******
             double leftY = -gamepad2.left_stick_y;
             robot.TestViper(leftY);
             telemetry.addData("Right Viper Position", robot.rightViper.getCurrentPosition());

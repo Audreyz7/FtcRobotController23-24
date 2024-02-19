@@ -32,8 +32,8 @@ public class A1HDrive extends ARobotBase {
         rightDrive = new Motor(ahwMap, "rightMotor");
         leftDrive = new Motor(ahwMap, "leftMotor");
 
-        backDrive.setInverted(true);
-        leftDrive.setInverted(true);
+        backDrive.setInverted(false);
+        leftDrive.setInverted(false);
         frontDrive.setInverted(false);
         rightDrive.setInverted(false);
 
@@ -52,6 +52,7 @@ public class A1HDrive extends ARobotBase {
 
     public void handDriveFieldCentric(double left_stick_y, double left_stick_x, double right_stick_x) {
         double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        heading += Math.toRadians(45.0);
         drive.driveFieldCentric(left_stick_x, left_stick_y, right_stick_x, heading);
     }
 

@@ -18,18 +18,21 @@ public class A2DroneLaunch extends A1HDrive{
     public void init(HardwareMap ahwMap, Telemetry opmode_telemetry){
         super.init(ahwMap,opmode_telemetry);
         droneLaunchServo = ahwMap.get(Servo.class, "droneLauncher");
+        droneLaunchServo.setPosition(0.6);
     }
 
     public void testDroneLaunch(double left_stick_y){
         droneLaunchServo.setPosition(left_stick_y);
     }
 
-    public void droneReset(double servoPositionorg) {
+    public boolean droneReset(double servoPositionorg) {
         droneLaunchServo.setPosition(servoPositionorg);
+        return true;
     }
 
-    public void launchDrone (double launchPosition) {
+    public boolean launchDrone (double launchPosition) {
         droneLaunchServo.setPosition(launchPosition);
+        return true;
     }
 }
 
