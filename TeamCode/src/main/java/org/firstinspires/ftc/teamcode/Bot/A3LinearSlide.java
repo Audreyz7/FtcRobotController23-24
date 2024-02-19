@@ -21,21 +21,13 @@ public class A3LinearSlide extends A2DroneLaunch {
         rightViper = ahwMap.get(DcMotor.class, "rightViper");
         leftViper = ahwMap.get(DcMotor.class, "leftViper");
     }
-    public double Deadband(double d) {
-        if (Math.abs(d) < 0.05) {
-            return 0;
-        }
-        else {
-            return d;
-        }
-    }
 
     public void TestViper(double left_stick_yy) {
         rightViper.setPower(left_stick_yy);
         leftViper.setPower(-left_stick_yy);
     }
     public void extension(double left_stick_yy) {
-        double left_stick_y = Deadband(-left_stick_yy); //test to be changed
+        double left_stick_y = -left_stick_yy; //test to be changed
         rightViper.setPower(left_stick_y);
         leftViper.setPower(-left_stick_y);
     }

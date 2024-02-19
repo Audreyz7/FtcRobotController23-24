@@ -36,6 +36,15 @@ public class TeleOpMode extends LinearOpMode{
         /******Make sure all devices connected******/
         telemetry.update();
 
+        public double Deadband(double d) {
+            if (Math.abs(d) < 0.05) {
+                return 0;
+            }
+            else {
+                return d;
+            }
+        }
+
         waitForStart();
         runtime.reset();
 
@@ -79,12 +88,12 @@ public class TeleOpMode extends LinearOpMode{
             robot.aimClaw(gamepad2.y);
             /******Pixel Placement******
             robot.xDistanceBoard();
-            /******Testing: Intake******
+            /******Testing: Intake******/
             robot.clawOpenRight.setPosition(1);
             double r1 = gamepad1.right_stick_y;
-            double r2 = -gamepad2.right_stick_y-1;
+            double r2 = -gamepad2.right_stick_y;
             double l1 = gamepad1.left_stick_y;
-            double l2 = -gamepad2.left_stick_y;
+            double l2 = 1;
             robot.testServos(r1,l1,r2,l2);
             telemetry.addData("Arm Left Position", robot.armRotationLeft.getPosition());
             telemetry.addData("Arm Right Position", robot.armRotationRight.getPosition());

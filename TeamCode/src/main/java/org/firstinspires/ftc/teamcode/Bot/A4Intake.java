@@ -18,13 +18,17 @@ public class    A4Intake extends A3LinearSlide{
     public Servo clawOpenRight;
 
     //Change these variables for tuning
-    public float clawPositionmax = 0;
-    public float clawPositionmin = 0;
-    public float armPositionmax = 0;
-    public float armPositionmin = 0;
+    public double clawPositionmaxLeft = 0;
+    public double clawPositionmaxRight = 0.2;
+    public double clawPositionminLeft = 0;
+    public double clawPositionminRight = 1;
+    public double armPositionmax = 0;
+    public double armPositionmin = 0;
 
-    public float armStart = 0;
-    public float clawStart = 0;
+    public double armStartLeft = 0;
+    public double armStartRight = 0;
+    public double clawStartLeft = 0;
+    public double clawStartRight = 1;
 
     public A4Intake (LinearOpMode opMode) {
         super(opMode);
@@ -38,8 +42,8 @@ public class    A4Intake extends A3LinearSlide{
         clawOpenLeft = ahwMap.get(Servo.class, "clawLeft");
         clawOpenRight = ahwMap.get(Servo.class, "clawRight");
 
-        clawOpenRight.setPosition(1);
-        clawOpenLeft.setPosition(0);
+        clawOpenLeft.setPosition(clawStartLeft);
+        clawOpenRight.setPosition(clawStartRight);
         //armRotationRight.setPosition(armStart);
         //armRotationLeft.setPosition(armStart);
     }
@@ -51,40 +55,24 @@ public class    A4Intake extends A3LinearSlide{
         clawOpenRight.setPosition(l2);
     }
 
-    public void getArmLeft() {
-        telemetry.addData("ArmLeft Initialized", armRotationLeft.getConnectionInfo());
-    }
-
-    public void getArmRight() {
-        telemetry.addData("ArmRight Initialized", armRotationRight.getConnectionInfo());
-    }
-
-    public void getClawLeft() {
-        telemetry.addData("ClawLeft Initialized", clawOpenLeft.getConnectionInfo());
-    }
-
-    public void getClawRight() {
-        telemetry.addData("clawRight Initialized", clawOpenRight.getConnectionInfo());
-    }
-
     public void clawLeftOpen(boolean left_bumper) {
         if (left_bumper) {
-            clawOpenLeft.setPosition(clawPositionmax);
+            clawOpenLeft.setPosition(clawPositionmaxLeft);
             clawLeftOpen = true;
         }
         if (clawLeftOpen && left_bumper) {
-            clawOpenLeft.setPosition(clawPositionmin);
+            clawOpenLeft.setPosition(clawPositionminLeft);
             clawLeftOpen = false;
         }
     }
 
     public void clawRightOpen(boolean right_bumper) {
         if (right_bumper) {
-            clawOpenRight.setPosition(clawPositionmax);
+            clawOpenRight.setPosition(clawPositionmaxRight);
             clawRightOpen = true;
         }
         if (clawRightOpen && right_bumper) {
-            clawOpenRight.setPosition(clawPositionmin);
+            clawOpenRight.setPosition(clawPositionminRight);
             clawRightOpen = false;
         }
     }
