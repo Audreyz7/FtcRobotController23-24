@@ -18,8 +18,8 @@ public class    A4Intake extends A3LinearSlide{
     public Servo clawOpenRight;
 
     //Change these variables for tuning
-    public double clawPositionmax= 0;
-    public double clawPositionmin = -1;
+    public double clawPositionmax= -0.01; //open
+    public double clawPositionmin = 0; //close
     public double armPositionmax = 0;
     public double armPositionmin = 0;
 
@@ -54,22 +54,22 @@ public class    A4Intake extends A3LinearSlide{
 
     public void clawLeftOpen(boolean left_bumper) {
         if (left_bumper) {
-            clawOpenLeft.setPosition(clawPositionmax);
+            clawOpenLeft.setPosition(clawPositionmin);
             clawLeftOpen = true;
         }
         if (clawLeftOpen && left_bumper) {
-            clawOpenLeft.setPosition(clawPositionmin);
+            clawOpenLeft.setPosition(clawPositionmax);
             clawLeftOpen = false;
         }
     }
 
     public void clawRightOpen(boolean right_bumper) {
         if (right_bumper) {
-            clawOpenRight.setPosition(clawPositionmax);
+            clawOpenRight.setPosition(clawPositionmin);
             clawRightOpen = true;
         }
         if (clawRightOpen && right_bumper) {
-            clawOpenRight.setPosition(clawPositionmin);
+            clawOpenRight.setPosition(clawPositionmax);
             clawRightOpen = false;
         }
     }

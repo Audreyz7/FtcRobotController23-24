@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+/*package org.firstinspires.ftc.teamcode;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Bot.A4Intake;
 
@@ -36,7 +36,7 @@ public class TeleOpMode extends LinearOpMode {
         robot.init(hardwareMap, opmode_telemetry);
         telemetry.addData("Status", "Initialized");
         /******Make sure all devices connected******/
-        telemetry.update();
+        //telemetry.update();
 
         /*public double Deadband(double d) {
             if (Math.abs(d) < 0.05) {
@@ -47,17 +47,17 @@ public class TeleOpMode extends LinearOpMode {
             }
         }*/
 
-        waitForStart();
-        runtime.reset();
+        //waitForStart();
+        //runtime.reset();
 
-        while (opModeIsActive()) {
-            /******Drive******
+        /*while (opModeIsActive()) {
+            /******Drive****** //Debug
              double y1 = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
              double x1 = gamepad1.left_stick_x;
              double rx1 = gamepad1.right_stick_x;
              robot.handDriveFieldCentric(y1,x1,rx1);
              telemetry.addLine("Drive initialized");
-             /******Drone launch******
+             /******Drone launch****** //Pass
              if (gamepad1.a) {
              robot.launchDrone(DronePos);
              launcher = true;
@@ -68,20 +68,20 @@ public class TeleOpMode extends LinearOpMode {
              if (launcher = true) {
              telemetry.addLine("Drone Launched");
              }
-             /******Viper extension*****
+             /******Viper extension***** //Good, tension left viper and set restrictions
              double y2 = -gamepad2.left_stick_y;
              robot.extension(y2);
              telemetry.addData("Right Viper Power", robot.rightViper.getPower());
              telemetry.addData("Left Viper Power", robot.leftViper.getPower());
-             /******Claw******
+             /******Claw****** //Debug why opening does not work
              robot.clawLeftOpen(gamepad2.left_bumper);
              telemetry.addData("Left Claw opened", robot.clawOpenLeft.getPosition());
              robot.clawRightOpen(gamepad2.right_bumper);
              telemetry.addData("Right Claw opened", robot.clawOpenRight.getPosition());
-             /******Arm Rotation******
+             /******Arm Rotation****** //Arm Servo Broken
              double position = -gamepad2.right_stick_y;
              robot.ArmRotation(position);
-             /******Climb height*****
+             /******Climb height***** //Test with truss, Can be hand tuned
              robot.climbHeight(gamepad2.b, climbExtensionLeft,climbExtensionRight);
              robot.climbRetract(gamepad2.a, climbRetractLeft, climbRetractRight);
              /******Drive Optimizations******
@@ -116,37 +116,10 @@ public class TeleOpMode extends LinearOpMode {
              if (gamepad1.left_bumper) {
              telemetry.addData("Drone position", robot.droneLaunchServo.getPosition());
              }
-             /************/
-            /*robot.clawOpenLeft.setPosition(-1);
-            telemetry.addData("pos", robot.clawOpenLeft.getPosition());
-            telemetry.update();*/
-            /*double r1 = -gamepad2.left_stick_y;
-            armServoLeft(r1);
-            /*robot.testServos(r1);
-            telemetry.addData("pos", robot.clawOpenLeft.getPosition());*/
-            armServoLeftTest();
-            telemetry.addData("pos", robot.armRotationLeft.getPosition());
-            telemetry.update();
+             /************
+            //telemetry.update();
         }
         // insert whatever de-initialization things you need to do when the game ends.
     }
-
-    public void armServoLeft(double x) {
-        robot.armRotationLeft.setDirection(Servo.Direction.REVERSE);
-        robot.armRotationLeft.setPosition(x);
-    }
-
-    public void armServoLeftTest(){
-        sleep(200);
-        robot.armRotationLeft.setPosition(0);
-        sleep(200);
-        robot.armRotationLeft.setPosition(0.5);
-        sleep(200);
-        robot.armRotationLeft.setPosition(1);
-        sleep(100);
-        telemetry.update();
-    }
-
-
-}
+}*/
 
