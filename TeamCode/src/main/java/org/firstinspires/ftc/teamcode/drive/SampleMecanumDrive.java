@@ -70,7 +70,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     private TrajectoryFollower follower;
 
-    private DcMotorEx leftFront, leftRear, rightRear, rightFront;
+    private DcMotorEx frontMotor, leftMotor, rightMotor, backMotor;
     private List<DcMotorEx> motors;
 
     private IMU imu;
@@ -99,12 +99,13 @@ public class SampleMecanumDrive extends MecanumDrive {
                 DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
         imu.initialize(parameters);
 
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
-        rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+            frontMotor = hardwareMap.get(DcMotorEx.class, "frontMotor");
+            leftMotor = hardwareMap.get(DcMotorEx.class, "leftMotor");
+            rightMotor = hardwareMap.get(DcMotorEx.class, "rightMotor");
+            backMotor = hardwareMap.get(DcMotorEx.class, "backMotor");
 
-        motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
+
+        motors = Arrays.asList(frontMotor, backMotor, leftMotor, rightMotor);
 
         for (DcMotorEx motor : motors) {
             MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
@@ -282,15 +283,15 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     @Override
     public void setMotorPowers(double v, double v1, double v2, double v3) {
-        leftFront.setPower(v);
-        leftRear.setPower(v1);
-        rightRear.setPower(v2);
-        rightFront.setPower(v3);
+        frontMotor.setPower(v);
+        backMotor.setPower(v1);
+        leftMotor.setPower(v2);
+        rightMotor.setPower(v3);
     }
 
     @Override
     public double getRawExternalHeading() {
-        return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS) + Math.toRadians(45.0);
     }
 
     @Override
