@@ -57,8 +57,6 @@ public class TeleOpMode extends LinearOpMode {
              double rx1 = gamepad1.right_stick_x;
              robot.handDriveFieldCentric(y1,x1,rx1);
              telemetry.addLine("Drive initialized");
-
-
              /******Drone launch******/ //Pass
              if (gamepad1.a) {
              robot.launchDrone(DronePos);
