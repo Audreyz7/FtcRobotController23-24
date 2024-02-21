@@ -53,7 +53,7 @@ public class A1HDrive extends ARobotBase {
     public void handDriveFieldCentric(double left_stick_y, double left_stick_x, double right_stick_x) {
         double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         heading += Math.toRadians(45.0);
-        drive.driveFieldCentric(left_stick_x, left_stick_y, right_stick_x, heading);
+        drive.driveFieldCentric(left_stick_x, right_stick_x, left_stick_y, heading);
     }
 
     public void positionLeftTag(boolean x) {

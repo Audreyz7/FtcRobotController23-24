@@ -1,4 +1,4 @@
-/*package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Bot.A4Intake;
 
@@ -51,13 +51,13 @@ public class TeleOpMode extends LinearOpMode {
         //runtime.reset();
 
         /*while (opModeIsActive()) {
-            /******Drive****** //Debug
+            /******Drive******/ //Debug
              double y1 = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
              double x1 = gamepad1.left_stick_x;
              double rx1 = gamepad1.right_stick_x;
              robot.handDriveFieldCentric(y1,x1,rx1);
              telemetry.addLine("Drive initialized");
-             /******Drone launch****** //Pass
+             /******Drone launch******/ //Pass
              if (gamepad1.a) {
              robot.launchDrone(DronePos);
              launcher = true;
@@ -68,12 +68,12 @@ public class TeleOpMode extends LinearOpMode {
              if (launcher = true) {
              telemetry.addLine("Drone Launched");
              }
-             /******Viper extension***** //Good, tension left viper and set restrictions
+             /******Viper extension*****/ //Good, tension left viper and set restrictions
              double y2 = -gamepad2.left_stick_y;
              robot.extension(y2);
              telemetry.addData("Right Viper Power", robot.rightViper.getPower());
              telemetry.addData("Left Viper Power", robot.leftViper.getPower());
-             /******Claw****** //Debug why opening does not work
+             /******Claw******/ //Debug why opening does not work
              robot.clawLeftOpen(gamepad2.left_bumper);
              telemetry.addData("Left Claw opened", robot.clawOpenLeft.getPosition());
              robot.clawRightOpen(gamepad2.right_bumper);
@@ -116,10 +116,10 @@ public class TeleOpMode extends LinearOpMode {
              if (gamepad1.left_bumper) {
              telemetry.addData("Drone position", robot.droneLaunchServo.getPosition());
              }
-             /************
+             /************/
             //telemetry.update();
         }
         // insert whatever de-initialization things you need to do when the game ends.
     }
-}*/
+}
 
