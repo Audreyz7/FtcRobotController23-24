@@ -47,10 +47,10 @@ public class TeleOpMode extends LinearOpMode {
             }
         }*/
 
-        //waitForStart();
-        //runtime.reset();
+        waitForStart();
+        runtime.reset();
 
-        /*while (opModeIsActive()) {
+        while (opModeIsActive()) {
             /******Drive******/ //Debug
              double y1 = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
              double x1 = gamepad1.left_stick_x;
