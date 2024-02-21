@@ -1,11 +1,11 @@
-/*package org.firstinspires.ftc.teamcode.Bot;
+package org.firstinspires.ftc.teamcode.Bot;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class A6AutoBase extends A5VisionPortal{
+public class A8AutoBase extends A7VisionPortal{
     public static double WIDTH = 17.78;
     public static double LENGTH = 17.5;
     // always starting boardside
@@ -24,13 +24,13 @@ public class A6AutoBase extends A5VisionPortal{
     public static double BOARD_X1 = -55, BOARD_Y1 = 12;
     public static double BOARD_X2 = 38, BOARD_Y2 = 12;
 
-    public A6AutoBase(LinearOpMode opMode) {
+    public A8AutoBase(LinearOpMode opMode) {
         super(opMode);
     }
 
-    public void init(HardwareMap ahwMap, Telemetry opmode_telemetry) {
-        super.init(ahwMap, opmode_telemetry);
+    public void init(HardwareMap ahwMap) {
+        super.init(ahwMap);
     }
 
-
-}*/
+    // public void driveForwardXDistance(double x)
+}

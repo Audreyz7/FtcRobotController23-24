@@ -22,6 +22,8 @@ public class TeleOpMode extends LinearOpMode {
     public int climbRetractLeft = 0;
     public int climbRetractRight = 0;
 
+    public double clawPos = 0;
+
     //initialize all variables, check for all variables that needs to be initalized
     public double DroneOrg = 0.6;
     public double DronePos = 0;
@@ -33,7 +35,7 @@ public class TeleOpMode extends LinearOpMode {
 
         //telemetry.addLine("Hello?");
         // initializes all the hardware by chaining through the human centipede type inheritance you got here.
-        robot.init(hardwareMap, opmode_telemetry);
+        robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         /******Make sure all devices connected******/
         //telemetry.update();
@@ -68,6 +70,7 @@ public class TeleOpMode extends LinearOpMode {
              if (launcher = true) {
              telemetry.addLine("Drone Launched");
              }
+
              /******Viper extension*****/ //Good, tension left viper and set restrictions
              double y2 = -gamepad2.left_stick_y;
              robot.extension(y2);
@@ -117,7 +120,17 @@ public class TeleOpMode extends LinearOpMode {
              telemetry.addData("Drone position", robot.droneLaunchServo.getPosition());
              }
              /************/
-            //telemetry.update();
+             telemetry.update();
+
+             if(gamepad2.a) {
+                 clawPos += 0.001;
+             }
+             if (gamepad2.b) {
+                 clawPos -= 0.001;
+             }
+             robot.clawOpenLeft.setPosition(clawPos);
+
+
         }
         // insert whatever de-initialization things you need to do when the game ends.
     }

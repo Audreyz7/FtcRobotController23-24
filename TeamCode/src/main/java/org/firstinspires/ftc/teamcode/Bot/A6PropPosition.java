@@ -1,11 +1,13 @@
-package org.firstinspires.ftc.teamcode.Bot.Vision;
+package org.firstinspires.ftc.teamcode.Bot;
 
-public enum PropPosition {
+
+
+public enum A6PropPosition {
     LEFT,
     CENTER,
     RIGHT;
 
-    public PropPosition swap(PropPosition position) {
+    public A6PropPosition swap(A6PropPosition position) {
         if (position.equals(LEFT)) {
             return RIGHT;
         } else if (position.equals(RIGHT)) {

@@ -1,11 +1,18 @@
-package org.firstinspires.ftc.teamcode.Bot.Vision;
+package org.firstinspires.ftc.teamcode.Bot;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.VisionProcessor;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
-import org.firstinspires.ftc.vision.VisionProcessor;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -18,7 +25,31 @@ import org.opencv.imgproc.Moments;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PropProcessor implements VisionProcessor {
+import javax.annotation.processing.Processor;
+
+public class A7VisionPortal extends A4Intake implements VisionProcessor {
+    VisionPortal.Builder myVisionPortalBuilder;
+    boolean USE_WEBCAM;
+    int RESOLUTION_WIDTH;
+    int RESOLUTION_HEIGHT;
+    VisionPortal myVisionPortal;
+    boolean lastX;
+    int frameCount;
+    long capReqTime;
+    boolean x;
+
+    Processor myAprilTagProcessor;
+
+    public A7VisionPortal(LinearOpMode opMode) {
+        super(opMode);
+    }
+
+    public void init(HardwareMap ahwMap) {
+        super.init(ahwMap);
+        // Specify the camera to be used for this VisionPortal.
+        myVisionPortalBuilder.setCamera(ahwMap.get(WebcamName.class, "Webcam 1"));
+    }
+
     //Reset for our team prop
     public Scalar blueMin = new Scalar(90, 50, 50);
     public Scalar blueMax = new Scalar(128, 255, 255);
@@ -40,10 +71,13 @@ public class PropProcessor implements VisionProcessor {
 
     List<MatOfPoint> contours = new ArrayList<>();
     MatOfPoint largestContour;
-    TeamColour teamColour = TeamColour.BLUE;
+    A5TeamColour teamColour = A5TeamColour.BLUE;
 
 
-    public PropProcessor(TeamColour teamColour) {this.teamColour = teamColour;}
+    public A7VisionPortal(LinearOpMode opMode, A5TeamColour teamColour) {
+        super(opMode);
+        this.teamColour = teamColour;
+    }
     /*
     Telemetry telemetry;
     ElapsedTime runtime = new ElapsedTime();
@@ -69,7 +103,7 @@ public class PropProcessor implements VisionProcessor {
         Mat mask = new Mat();
         Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(5, 5));
 
-        if (teamColour == TeamColour.RED) {
+        if (teamColour == A5TeamColour.RED) {
             Mat mask2 = new Mat();
             Mat combinedMask = new Mat();
             Core.inRange(hsvFrame, red1Min, red1Max, mask);
@@ -80,7 +114,7 @@ public class PropProcessor implements VisionProcessor {
             Imgproc.morphologyEx(combinedMask, mask, Imgproc.MORPH_CLOSE, kernel);
             mask = combinedMask;
 
-        } else if (teamColour == TeamColour.BLUE) {
+        } else if (teamColour == A5TeamColour.BLUE) {
             Core.inRange(hsvFrame, blueMin, blueMax, mask);
             Imgproc.morphologyEx(mask, mask, Imgproc.MORPH_OPEN, kernel);
             Imgproc.morphologyEx(mask, mask, Imgproc.MORPH_CLOSE, kernel);
@@ -147,23 +181,21 @@ public class PropProcessor implements VisionProcessor {
         }
     }
 
-    public PropPosition getPropPosition() {
-        PropPosition position = null;
+    public A6PropPosition getPropPosition() {
+        A6PropPosition position = null;
         if (largestContour == null) {
-            return PropPosition.CENTER;
+            return A6PropPosition.CENTER;
         }
         Moments moments = Imgproc.moments(largestContour);
         double x = moments.get_m10() / moments.get_m00();
 
         if (x <= xOffset + xFactor) {
-            position = PropPosition.LEFT;
+            position = A6PropPosition.LEFT;
         } else if (x >= xOffset + 3 * xFactor) {
-            position = PropPosition.RIGHT;
+            position = A6PropPosition.RIGHT;
         } else {
-            position = PropPosition.CENTER;
+            position = A6PropPosition.CENTER;
         }
         return position;
     }
-
-
 }

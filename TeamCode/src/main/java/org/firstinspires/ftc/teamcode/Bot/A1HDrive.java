@@ -25,8 +25,8 @@ public class A1HDrive extends ARobotBase {
     }
 
     @Override
-    public void init(HardwareMap ahwMap, Telemetry opmode_telemetry) {
-        super.init(ahwMap,opmode_telemetry);
+    public void init(HardwareMap ahwMap) {
+        super.init(ahwMap);
         frontDrive = new Motor(ahwMap, "frontMotor");
         backDrive = new Motor(ahwMap, "backMotor");
         rightDrive = new Motor(ahwMap, "rightMotor");
@@ -53,8 +53,8 @@ public class A1HDrive extends ARobotBase {
     public void handDriveFieldCentric(double left_stick_y, double left_stick_x, double right_stick_x) {
         double rotated_x = left_stick_x * Math.cos(Math.toRadians(45)) - left_stick_y * Math.sin(Math.toRadians(45));
         double rotated_y = left_stick_x * Math.sin(Math.toRadians(45)) + left_stick_y * Math.cos(Math.toRadians(45));
-        double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-        heading += Math.toRadians(45.0);
+        double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+        heading += 45.0;
         drive.driveFieldCentric(rotated_x, right_stick_x, rotated_y, heading);
     }
 

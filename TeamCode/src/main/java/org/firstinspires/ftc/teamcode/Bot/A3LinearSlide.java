@@ -16,8 +16,8 @@ public class A3LinearSlide extends A2DroneLaunch {
     }
 
     @Override
-    public void init(HardwareMap ahwMap, Telemetry opmode_telemetry) {
-        super.init(ahwMap, opmode_telemetry);
+    public void init(HardwareMap ahwMap) {
+        super.init(ahwMap);
         rightViper = ahwMap.get(DcMotor.class, "rightViper");
         leftViper = ahwMap.get(DcMotor.class, "leftViper");
     }

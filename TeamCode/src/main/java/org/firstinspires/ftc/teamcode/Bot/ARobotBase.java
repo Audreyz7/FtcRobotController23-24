@@ -37,9 +37,8 @@ public class ARobotBase{
     }
 
 
-    public void init(HardwareMap ahwMap, Telemetry opmode_telemetry) {
+    public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
-        telemetry = opmode_telemetry;
     }
 
     public void onLoop(String label){
