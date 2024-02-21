@@ -82,7 +82,7 @@ public class TeleOpMode extends LinearOpMode {
              telemetry.addData("Right Claw opened", robot.clawOpenRight.getPosition());
              /******Arm Rotation****** //Arm Servo Broken
              double position = -gamepad2.right_stick_y;
-             robot.Ï(position);
+             robot.ArmRotation(position);
              /******Climb height***** //Test with truss, Can be hand tuned
              robot.climbHeight(gamepad2.b, climbExtensionLeft,climbExtensionRight);
              robot.climbRetract(gamepad2.a, climbRetractLeft, climbRetractRight);

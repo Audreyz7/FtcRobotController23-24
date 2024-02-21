@@ -53,7 +53,6 @@ public class    A4Intake extends A3LinearSlide{
     }
 
     public void clawLeftOpen(boolean left_bumper) {
-
         if (left_bumper) {
             clawOpenLeft.setPosition(clawPositionmin);
             clawLeftOpen = true;
