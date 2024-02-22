@@ -50,7 +50,7 @@ public class A1HDrive extends ARobotBase {
         drive = new HDrive(frontDrive, backDrive, leftDrive, rightDrive);
     }
 
-    public void handDriveFieldCentric(double left_stick_y, double left_stick_x, double right_stick_x) {
+    public void handDrive(double left_stick_y, double left_stick_x, double right_stick_x) {
         double rotated_x = left_stick_x * Math.cos(Math.toRadians(45)) - left_stick_y * Math.sin(Math.toRadians(45));
         double rotated_y = left_stick_x * Math.sin(Math.toRadians(45)) + left_stick_y * Math.cos(Math.toRadians(45));
         double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);

@@ -18,14 +18,13 @@ public class    A4Intake extends A3LinearSlide{
     public Servo clawOpenRight;
 
     //Change these variables for tuning
-    public double clawPositionmax= -0.01; //open
-    public double clawPositionmin = 0; //close
-    public double armPositionmax = 0;
+    public double clawPositionmax= 0.52; //open
+    public double clawPositionmin = 1; //close
+    public double armPositionmax = 0.74;
     public double armPositionmin = 0;
 
-    public double armStartLeft = 0;
-    public double armStartRight = 0;
-    public double clawStart = 0;
+    public double armStart = 0;
+    public double clawStart = 1;
 
     public A4Intake (LinearOpMode opMode) {
         super(opMode);
@@ -44,12 +43,8 @@ public class    A4Intake extends A3LinearSlide{
 
         clawOpenLeft.setPosition(clawStart);
         clawOpenRight.setPosition(clawStart);
-        //armRotationRight.setPosition(armStart);
-        //armRotationLeft.setPosition(armStart);
-    }
-
-    public void testServos(double r1) {
-        clawOpenLeft.setPosition(r1);
+        armRotationRight.setPosition(armStart);
+        armRotationLeft.setPosition(armStart);
     }
 
     public void clawLeftOpen(boolean left_bumper) {
@@ -75,7 +70,7 @@ public class    A4Intake extends A3LinearSlide{
     }
 
     public void ArmRotation (double position) {
-        position = (position + 1 )/2;
+        position = (position + 1) / 2;
         if (position >= armPositionmax) {
             armRotationLeft.setPosition(armPositionmax);
             armRotationRight.setPosition(armPositionmax);
@@ -83,8 +78,7 @@ public class    A4Intake extends A3LinearSlide{
         if (position <= armPositionmin) {
             armRotationLeft.setPosition(armPositionmin);
             armRotationRight.setPosition(armPositionmin);
-        }
-        else {
+        } else {
             armRotationLeft.setPosition(position);
             armRotationRight.setPosition(position);
         }

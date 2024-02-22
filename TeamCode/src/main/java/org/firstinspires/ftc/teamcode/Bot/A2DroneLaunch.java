@@ -19,10 +19,7 @@ public class A2DroneLaunch extends A1HDrive{
         super.init(ahwMap);
         droneLaunchServo = ahwMap.get(Servo.class, "droneLauncher");
         droneLaunchServo.setPosition(0.6);
-    }
-
-    public void testDroneLaunch(double left_stick_y){
-        droneLaunchServo.setPosition(left_stick_y);
+        droneLaunchServo.setDirection(Servo.Direction.REVERSE);
     }
 
     public boolean droneReset(double servoPositionorg) {

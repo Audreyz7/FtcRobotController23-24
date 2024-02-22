@@ -1,11 +1,16 @@
 package org.firstinspires.ftc.teamcode.Bot;
 
+import com.arcrobotics.ftclib.drivebase.HDrive;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.teamcode.Bot.A7VisionPortal;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class A8AutoBase extends A7VisionPortal{
+    public A7VisionPortal robot = new A7VisionPortal(this);
     public static double WIDTH = 17.78;
     public static double LENGTH = 17.5;
     // always starting boardside
@@ -30,7 +35,42 @@ public class A8AutoBase extends A7VisionPortal{
 
     public void init(HardwareMap ahwMap) {
         super.init(ahwMap);
+        backDrive.setInverted(false);
+        leftDrive.setInverted(true);
+        frontDrive.setInverted(true);
+        rightDrive.setInverted(false);
+
+        /*
+        Look at this to determine the right direction for your imu
+        https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html
+         */
+        imu = hwMap.get(IMU.class, "imu");
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.UsbFacingDirection.UP));
+        imu.initialize(parameters);
+
+        drive = new HDrive(frontDrive, backDrive, leftDrive, rightDrive);
     }
 
-    // public void driveForwardXDistance(double x)
+    public void driveXDistanceStraight(double x ) {
+
+    }
+
+    public void straftXAngle(double x) {
+
+    }
+
+    public void yellowPixelPlacement(boolean x) {
+
+    }
+
+    public void purplePixelPlacement(boolean x) {
+
+    }
+
+    public void pixelIntake(boolean x) {
+
+    }
+
 }
