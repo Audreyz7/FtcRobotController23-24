@@ -58,6 +58,16 @@ public class A1HDrive extends ARobotBase {
         drive.driveFieldCentric(rotated_x, right_stick_x, rotated_y, heading);
     }
 
+    public void SetPowerStraight() {
+        frontDrive.set(0.5);
+        backDrive.set(0.5);
+    }
+
+    public void SetPowerLeft() {
+        leftDrive.set(0.5);
+        rightDrive.set(0.5);
+    }
+
     public void positionLeftTag(boolean x) {
 
     }

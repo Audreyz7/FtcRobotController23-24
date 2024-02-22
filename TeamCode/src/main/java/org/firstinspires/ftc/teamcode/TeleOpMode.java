@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "Tele op Mode")
+@TeleOp(name = "Tele op Mode", group = "TeleOp")
 public class TeleOpMode extends LinearOpMode {
     private A4Intake robot = new A4Intake(this);
     private ElapsedTime runtime = new ElapsedTime();
