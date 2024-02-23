@@ -1,5 +1,6 @@
-/*package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode;
 
+import org.firstinspires.ftc.teamcode.Bot.A6PropPosition;
 import org.firstinspires.ftc.teamcode.Bot.A8AutoBase;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -9,5 +10,21 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Autonomous(name="Close Red", group="Autonomous")
 public class CloseRedAuto extends LinearOpMode {
+    private A8AutoBase robot = new A8AutoBase(this);
 
-}*/
+    public void runOpMode() throws InterruptedException {
+
+        waitForStart();
+        if (isStopRequested()) {
+            return;
+        }
+        if (robot.getPropPosition() == A6PropPosition.LEFT) {
+
+        }
+        if (robot.getPropPosition() == A6PropPosition.RIGHT) {
+
+        } else {
+            //Center
+        }
+    }
+}

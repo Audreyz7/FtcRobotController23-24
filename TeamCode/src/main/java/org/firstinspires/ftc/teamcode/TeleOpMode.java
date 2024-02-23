@@ -12,10 +12,8 @@ public class TeleOpMode extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     Telemetry opmode_telemetry;
 
-    public int climbExtensionLeft = 0;
-    public int climbExtensionRight = 0;
-    public int climbRetractLeft = 0;
-    public int climbRetractRight = 0;
+    public int climbExtension = 0;
+    public int climbRetract = 0;
 
     public double clawPos = 0;
 
@@ -82,9 +80,9 @@ public class TeleOpMode extends LinearOpMode {
              robot.ArmRotation(position);
              telemetry.addData("posl", robot.armRotationLeft.getPosition());
              telemetry.addData("posr", robot.armRotationRight.getPosition());
-             /******Climb height***** //Test with truss, Can be hand tuned
-             robot.climbHeight(gamepad2.b, climbExtensionLeft,climbExtensionRight);
-             robot.climbRetract(gamepad2.a, climbRetractLeft, climbRetractRight);
+             /******Climb height*****/ //Test with truss, Can be hand tuned
+             robot.climbHeight(gamepad2.b, climbExtension);
+             robot.climbRetract(gamepad2.a, climbRetract);
              /******Drive Optimizations******
              robot.positionLeftTag(gamepad1.x);
              robot.positionCenterTag(gamepad1.y);

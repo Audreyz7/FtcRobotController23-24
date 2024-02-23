@@ -34,14 +34,27 @@ public class A8AutoBase extends A7VisionPortal {
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
         imu.initialize(parameters);
 
-        drive = new HDrive(frontDrive, backDrive, leftDrive, rightDrive);
+        drive = new HDrive(frontDrive, backDrive, leftDrive, rightDrive);        if(USE_WEBCAM) {
+            super.init(ahwMap);
+        }
+        armRotationLeft.setPosition(super.armStart);
+        armRotationRight.setPosition(super.armStart);
+        clawOpenLeft.setPosition(super.clawStart);
+        clawOpenRight.setPosition(super.clawStart);
+    }
+
+    public void PropDetection(A5TeamColour teamColour) {
+
     }
 
     public void driveYDistanceStraight(double distance, double rotationy) {
         //Forward,backward movement
         //1 rotation = 301.6 mm
-        // 537.6 ppr
+        // 537.6 pulses per rotation
         //each tile is 24 inches = 609.6
+        double dpp = 301.6/577.6;
+        leftDrive.resetEncoder();
+        rightDrive.resetEncoder();
         double rotations = distance/301.6;
         SetPowerStraight();
         if (rotationy == rotations) {
@@ -51,6 +64,9 @@ public class A8AutoBase extends A7VisionPortal {
 
     public void driveXDistanceStraight(double distance, double rotationx) {
         //Left, right mvoement
+        double dpp = 301.6/577.6;
+        frontDrive.resetEncoder();
+        backDrive.resetEncoder();
         double rotations = distance/301.6;
         SetPowerLeft();
         if (rotationx == rotations) {
@@ -86,29 +102,34 @@ public class A8AutoBase extends A7VisionPortal {
 
     public void purplePixelPlacement() {
         double a = 0.52;
-        clawOpenLeft.setPosition(a);
+        clawOpenRight.setPosition(a);
+        sleep(1000);
+        clawOpenRight.setPosition(0);
     }
 
     public void pixelOuttake() {
         //Cant use without intake
         double a = 0.52;
         clawOpenLeft.setPosition(a);
+        sleep(1200);
+        clawOpenLeft.setPosition(1);
     }
 
     public void pixelIntake() {
         //Set certain angle for stack intake
         //48 degrees?
-        armRotationLeft.set
+        armRotationLeft.setPosition(0.20);
+        armRotationRight.setPosition(0.20);
     }
 
-    public void SetPowerStraight() {
+    public void SetPowerLeft() {
         frontDrive.setRunMode(Motor.RunMode.RawPower);
         backDrive.setRunMode(Motor.RunMode.RawPower);
         frontDrive.set(0.5);
         backDrive.set(0.5);
     }
 
-    public void SetPowerLeft() {
+    public void SetPowerStraight() {
         leftDrive.setRunMode(Motor.RunMode.RawPower);
         rightDrive.setRunMode(Motor.RunMode.RawPower);
         leftDrive.set(0.5);
@@ -116,6 +137,10 @@ public class A8AutoBase extends A7VisionPortal {
     }
 
     public void SetPowerZero() {
+        frontDrive.setRunMode(Motor.RunMode.RawPower);
+        backDrive.setRunMode(Motor.RunMode.RawPower);
+        leftDrive.setRunMode(Motor.RunMode.RawPower);
+        rightDrive.setRunMode(Motor.RunMode.RawPower);
         frontDrive.set(0);
         backDrive.set(0);
         leftDrive.set(0);

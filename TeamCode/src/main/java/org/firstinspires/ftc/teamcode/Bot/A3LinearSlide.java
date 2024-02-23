@@ -32,16 +32,14 @@ public class A3LinearSlide extends A2DroneLaunch {
         leftViper.setPower(-left_stick_y);
     }
 
-    public void climbHeight(boolean b, int climbPositionLeft, int climbPositionRight) {
-        rightViper.setTargetPosition(climbPositionRight);
-        leftViper.setTargetPosition(climbPositionLeft);
-        telemetry.addData("Right Viper Position", rightViper.getCurrentPosition());
-        telemetry.addData("Left Viper Position", leftViper.getCurrentPosition());
+    public void climbHeight(boolean b, int climbPosition) {
+        rightViper.setTargetPosition(climbPosition);
+        leftViper.setTargetPosition(climbPosition);
     }
 
-    public void climbRetract(boolean a, int climbRetractLeft, int climbRetractRight) {
-        rightViper.setTargetPosition(climbRetractRight);
-        leftViper.setTargetPosition(climbRetractLeft);
+    public void climbRetract(boolean a, int climbRetract) {
+        rightViper.setTargetPosition(climbRetract);
+        leftViper.setTargetPosition(climbRetract);
     }
 
 }
