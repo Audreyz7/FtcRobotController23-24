@@ -4,6 +4,7 @@ import org.firstinspires.ftc.teamcode.Bot.A4Intake;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name = "Tele op Mode", group = "TeleOp")
@@ -23,7 +24,6 @@ public class TeleOpMode extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
         //Telemetry telemetry = new Telemetry;
-        boolean isAuto = false;
         boolean launcher = false;
 
         //telemetry.addLine("Hello?");
@@ -53,68 +53,73 @@ public class TeleOpMode extends LinearOpMode {
              robot.handDrive(y1,x1,rx1);
              telemetry.addLine("Drive initialized");
 
-             /******Drone launch******/ //Deadzone
+             /******Drone launch****** //Deadzone
              if (gamepad1.a) {
-             robot.launchDrone(DronePos);
-             launcher = true;
+                robot.launchDrone(DronePos);
+                launcher = true;
+                telemetry.addLine("Drone Launched");
              }
              if (gamepad1.a && gamepad1.left_bumper) {
-             robot.droneReset(DroneOrg);
+                robot.droneReset(DroneOrg);
              }
-             if (launcher = true) {
-             telemetry.addLine("Drone Launched");
-             }
-
-             /******Viper extension*****/
+             /******Viper extension*****
              double y2 = -gamepad2.left_stick_y;
              robot.extension(y2);
-             telemetry.addData("Right Viper Power", robot.rightViper.getPower());
-             telemetry.addData("Left Viper Power", robot.leftViper.getPower());
-             /******Claw******/ //Debug left claw opening
+             robot.leftViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+             robot.rightViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+             robot.leftViper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+             robot.rightViper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+             telemetry.addData("Right Viper Position", robot.rightViper.getCurrentPosition());
+             telemetry.addData("Left Viper Position", robot.leftViper.getCurrentPosition());
+             //Use to set restrictions and climb height
+             telemetry.update();
+             /******Claw****** //Debug left claw opening
              robot.clawLeftOpen(gamepad2.left_bumper);
              telemetry.addData("Left Claw opened", robot.clawOpenLeft.getPosition());
              robot.clawRightOpen(gamepad2.right_bumper);
              telemetry.addData("Right Claw opened", robot.clawOpenRight.getPosition());
-             /*****Arm Rotation******/
+             /*****Arm Rotation******
              double position = -gamepad2.right_stick_y;
              robot.ArmRotation(position);
              telemetry.addData("posl", robot.armRotationLeft.getPosition());
              telemetry.addData("posr", robot.armRotationRight.getPosition());
-             /******Climb height*****/ //Test with truss, Can be hand tuned
+             /******Climb height***** //Test with truss, Can be hand tuned
+             robot.leftViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+             robot.rightViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+             robot.leftViper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+             robot.rightViper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
              robot.climbHeight(gamepad2.b, climbExtension);
-             robot.climbRetract(gamepad2.a, climbRetract);
-             /******Drive Optimizations******
-             robot.positionLeftTag(gamepad1.x);
-             robot.positionCenterTag(gamepad1.y);
-             robot.positionRightTag(gamepad1.b);
-             /******Pixel Optimizations******
-             robot.aimClaw(gamepad2.y);
-             /******Pixel Placement******
-             robot.xDistanceBoard();
-             /******Testing: droneLauncher******
+             robot.climbRetract(gamepad2.a, climbRetract);;
+             /******Testing: droneLauncher******/
              double leftY = -gamepad1.left_stick_y;
-             boolean x = gamepad1.x;
              telemetry.addData("Org", robot.droneLaunchServo.getPosition());
              robot.droneLaunchServo.setPosition(leftY);
              if (gamepad1.left_bumper) {
              telemetry.addData("Drone position", robot.droneLaunchServo.getPosition());
              }
-             /************
+             /******Claw Test******/
             double position = -gamepad2.left_stick_y;
-            clawOpenTest(position);
+            double position2 = -gamepad2.right_stick_y;
+            clawOpenTestLeft(position);
+            clawOpenTestRight(position2);
             telemetry.addData("dirl", robot.clawOpenLeft.getDirection());
             telemetry.addData("dirr", robot.clawOpenRight.getDirection());
             telemetry.addData("posl", robot.clawOpenLeft.getPosition());
             telemetry.addData("posr", robot.clawOpenRight.getPosition());
-            /************/
+            /******claw set position - for putting prongs on******/
+             robot.clawOpenLeft.setPosition(0.52);
+             robot.clawOpenRight.setPosition(0.52);
             telemetry.update();
         }
         // insert whatever de-initialization things you need to do when the game ends.
     }
 
 
-    public void clawOpenTest(double pos) {
+    public void clawOpenTestLeft(double pos) {
         robot.clawOpenLeft.setPosition(pos);
+    }
+
+    public void clawOpenTestRight(double pos) {
         robot.clawOpenRight.setPosition(1-pos);
     }
 }
