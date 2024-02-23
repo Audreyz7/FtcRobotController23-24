@@ -117,7 +117,7 @@ public class TeleOpMode extends LinearOpMode {
 
     public void clawOpenTest(double pos) {
         robot.clawOpenLeft.setPosition(pos);
-        robot.clawOpenRight.setPosition(pos);
+        robot.clawOpenRight.setPosition(1-pos);
     }
 }
 

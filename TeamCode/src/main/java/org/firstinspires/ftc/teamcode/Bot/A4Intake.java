@@ -19,12 +19,12 @@ public class    A4Intake extends A3LinearSlide{
 
     //Change these variables for tuning
     public double clawPositionmax= 0.52; //open
-    public double clawPositionmin = 1; //close
+    public double clawPositionmin = 0; //close
     public double armPositionmax = 0.74;
     public double armPositionmin = 0;
 
     public double armStart = 0;
-    public double clawStart = 1;
+    public double clawStart = 0;
 
     public A4Intake (LinearOpMode opMode) {
         super(opMode);
@@ -39,7 +39,8 @@ public class    A4Intake extends A3LinearSlide{
         clawOpenRight = ahwMap.get(Servo.class, "clawRight");
 
         armRotationLeft.setDirection(Servo.Direction.REVERSE);
-        clawOpenLeft.setDirection(Servo.Direction.REVERSE);
+        //clawOpenLeft.setDirection(Servo.Direction.REVERSE);
+        //clawOpenRight.setDirection(Servo.Direction.REVERSE);
 
         clawOpenLeft.setPosition(clawStart);
         clawOpenRight.setPosition(clawStart);

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+/*package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.teamcode.Bot.A8AutoBase;
 
@@ -8,13 +8,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Autonomous(name="Close Red", group="Autonomous")
-public class CloseRedAuto extends A8AutoBase {
+public class CloseRedAuto extends LinearOpMode {
 
-    public CloseRedAuto(LinearOpMode opMode) {
-        super(opMode);
-    }
-
-    public void init(HardwareMap ahwMap) {
-        super.init(ahwMap);
-    }
-}
+}*/

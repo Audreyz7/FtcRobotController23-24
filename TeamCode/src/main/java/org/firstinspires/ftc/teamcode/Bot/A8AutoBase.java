@@ -1,34 +1,18 @@
 package org.firstinspires.ftc.teamcode.Bot;
 
 import com.arcrobotics.ftclib.drivebase.HDrive;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.CloseBlueAuto;
 
 import java.util.Set;
 
 public class A8AutoBase extends A7VisionPortal {
-    public static double WIDTH = 17.78;
-    public static double LENGTH = 17.5;
-    //Cooridnates
-    public static double START_X = 24 - WIDTH / 2;
-    public static double START_Y = 72 - (LENGTH / 2);
-    public static double BONUS_OFFSET = -6.22;
-    public static double SPIKE_BACK_OFFSET = -10;
-
-    public static double BASE_X = 34, BASE_Y = 36, BASE_H = 180;
-    public static double SC_X = 15.11, SC_Y = 27;
-    public static double SR_X = 8, SR_Y = 36, SR_H = -90;
-    public static double SL_X = 29, SL_Y = 36, SL_H = 90;
-    public static double DROP_X = 49, DROP_Y = 48; //Check
-    public static double DROP_CENTER = 35, DROP_OFFSET = 5;
-    public static double PARK_X = 60, PARK_Y = 60;
-    public static double BOARD_X1 = -55, BOARD_Y1 = 12;
-    public static double BOARD_X2 = 38, BOARD_Y2 = 12;
-
     public A8AutoBase(LinearOpMode opMode) {
         super(opMode);
     }
@@ -53,40 +37,80 @@ public class A8AutoBase extends A7VisionPortal {
         drive = new HDrive(frontDrive, backDrive, leftDrive, rightDrive);
     }
 
-    public void driveYDistanceStraight(double distance) {
-        double rotations = distance/301.6;
+    public void driveYDistanceStraight(double distance, double rotationy) {
         //Forward,backward movement
         //1 rotation = 301.6 mm
-        leftDrive.setDistancePerPulse(rotation);
+        // 537.6 ppr
+        //each tile is 24 inches = 609.6
+        double rotations = distance/301.6;
+        SetPowerStraight();
+        if (rotationy == rotations) {
+            SetPowerZero();
+        }
     }
 
-    public void driveXDistanceStraight(double distance) {
+    public void driveXDistanceStraight(double distance, double rotationx) {
         //Left, right mvoement
+        double rotations = distance/301.6;
         SetPowerLeft();
+        if (rotationx == rotations) {
+            SetPowerZero();
+        }
     }
 
-    public void straftXAngle(double angle) {
-        //turning
+    public void turnAngle(double angle) {
+        // turning
+        angle *= (Math.PI / 180);
+        double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        double new_heading = heading;
+        for (; new_heading != heading + angle;) {
+            new_heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+            frontDrive.setRunMode(Motor.RunMode.RawPower);
+            backDrive.setRunMode(Motor.RunMode.RawPower);
+            leftDrive.setRunMode(Motor.RunMode.RawPower);
+            rightDrive.setRunMode(Motor.RunMode.RawPower);
+            frontDrive.set(0.5);
+            backDrive.set(0.5);
+            leftDrive.set(0.5);
+            rightDrive.set(0.5);
+        }
     }
 
-    public void yellowPixelPlacement(boolean x) {
-
+    public void yellowPixelPlacement() {
+        double a = 0.52;
+        double b = 0.74;
+        armRotationLeft.setPosition(b);
+        armRotationRight.setPosition(b);
+        clawOpenRight.setPosition(a);
     }
 
-    public void purplePixelPlacement(boolean x) {
-
+    public void purplePixelPlacement() {
+        double a = 0.52;
+        clawOpenLeft.setPosition(a);
     }
 
-    public void pixelIntake(boolean x) {
+    public void pixelOuttake() {
+        //Cant use without intake
+        double a = 0.52;
+        clawOpenLeft.setPosition(a);
+    }
 
+    public void pixelIntake() {
+        //Set certain angle for stack intake
+        //48 degrees?
+        armRotationLeft.set
     }
 
     public void SetPowerStraight() {
+        frontDrive.setRunMode(Motor.RunMode.RawPower);
+        backDrive.setRunMode(Motor.RunMode.RawPower);
         frontDrive.set(0.5);
         backDrive.set(0.5);
     }
 
     public void SetPowerLeft() {
+        leftDrive.setRunMode(Motor.RunMode.RawPower);
+        rightDrive.setRunMode(Motor.RunMode.RawPower);
         leftDrive.set(0.5);
         rightDrive.set(0.5);
     }

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import org.firstinspires.ftc.teamcode.Bot.A4Intake;
 import org.firstinspires.ftc.teamcode.Bot.A7VisionPortal;
 import org.firstinspires.ftc.teamcode.Bot.A8AutoBase;
 
@@ -9,12 +10,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Autonomous(name="Close Blue", group="Autonomous")
-public class CloseBlueAuto extends A8AutoBase{
+public class CloseBlueAuto extends LinearOpMode{
     private A8AutoBase robot = new A8AutoBase(this);
-    public CloseBlueAuto(LinearOpMode opMode) {
-        super(opMode);
-    }
-    public void init(HardwareMap ahwMap) {
-        super.init(ahwMap);
+    
+    public void runOpMode() throws InterruptedException {
+
     }
 }
