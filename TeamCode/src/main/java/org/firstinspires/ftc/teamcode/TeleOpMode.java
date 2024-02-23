@@ -46,7 +46,7 @@ public class TeleOpMode extends LinearOpMode {
         runtime.reset();
 
         while (opModeIsActive()) {
-            /******Drive******/ //Debug
+            /******Drive****** //Debug
              double y1 = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
              double x1 = gamepad1.left_stick_x;
              double rx1 = gamepad1.right_stick_x;
@@ -111,7 +111,6 @@ public class TeleOpMode extends LinearOpMode {
              robot.clawOpenRight.setPosition(0.52);
             telemetry.update();
         }
-        // insert whatever de-initialization things you need to do when the game ends.
     }
 
 

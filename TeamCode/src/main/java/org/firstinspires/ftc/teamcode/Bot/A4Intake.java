@@ -18,8 +18,10 @@ public class    A4Intake extends A3LinearSlide{
     public Servo clawOpenRight;
 
     //Change these variables for tuning
-    public double clawPositionmax= 0.52; //open
-    public double clawPositionmin = 0; //close
+    public double clawPositionmaxLeft= 0.52; //open
+    public double clawPositionminLeft = 0; //close
+    public double clawPositionmaxRight = 0.52;
+    public double clawPositionminRight = 1;
     public double armPositionmax = 0.74;
     public double armPositionmin = 0;
 
@@ -50,22 +52,26 @@ public class    A4Intake extends A3LinearSlide{
 
     public void clawLeftOpen(boolean left_bumper) {
         if (left_bumper) {
-            clawOpenLeft.setPosition(clawPositionmin);
+            //open
+            clawOpenLeft.setPosition(clawPositionmaxLeft);
             clawLeftOpen = true;
         }
         if (clawLeftOpen && left_bumper) {
-            clawOpenLeft.setPosition(clawPositionmax);
+            //close
+            clawOpenLeft.setPosition(clawPositionminLeft);
             clawLeftOpen = false;
         }
     }
 
     public void clawRightOpen(boolean right_bumper) {
         if (right_bumper) {
-            clawOpenRight.setPosition(clawPositionmin);
+            //open
+            clawOpenRight.setPosition(clawPositionmaxRight);
             clawRightOpen = true;
         }
         if (clawRightOpen && right_bumper) {
-            clawOpenRight.setPosition(clawPositionmax);
+            //close
+            clawOpenRight.setPosition(clawPositionminRight);
             clawRightOpen = false;
         }
     }
@@ -83,13 +89,5 @@ public class    A4Intake extends A3LinearSlide{
             armRotationLeft.setPosition(position);
             armRotationRight.setPosition(position);
         }
-    }
-
-    public void aimClaw(boolean y) {
-
-    }
-
-    public void armPosition(boolean x) {
-
     }
 }
