@@ -14,14 +14,21 @@ public class CloseRedAuto extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
         double pmtcw = 0;
-        double spaceToMove = (584.2-pmtcw-20) + 381.4;
+        double moveToSpike = 0; //(584.2-pmtcw-20) + 381.4
+        double moveForwardCenter = 0;
         robot.resetEncoders();
         waitForStart();
-        robot.driveYDistanceStraight(spaceToMove);
+        robot.driveYDistanceStraight(moveToSpike);
         if (isStopRequested()) {
             return;
         }
         if (robot.getPropPosition() == A6PropPosition.LEFT) {
+            robot.turnAngle(90.0);
+            robot.purplePixelPlacement();
+            robot.removeClaw();
+            robot.purplePixelClose();
+            robot.flipArmUp();
+            robot.driveYDistanceStraight(-(moveToSpike - 1.5));
             /*            robot.turnAngle(90.0);
             robot.purplePixelPlacement();
             robot.removeClaw();
