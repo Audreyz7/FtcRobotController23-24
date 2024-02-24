@@ -13,8 +13,8 @@ public class CloseRedAuto extends LinearOpMode {
     private A8AutoBase robot = new A8AutoBase(this);
 
     public void runOpMode() throws InterruptedException {
-        double pmtcw = 0;
-        double moveToSpike = 0; //(584.2-pmtcw-20) + 381.4
+        double pmtcw = 506;
+        double moveToSpike = 78.2+381.4; //(584.2-pmtcw-20) + 381.4
         double moveForwardCenter = 0;
         robot.resetEncoders();
         waitForStart();
@@ -24,11 +24,17 @@ public class CloseRedAuto extends LinearOpMode {
         }
         if (robot.getPropPosition() == A6PropPosition.LEFT) {
             robot.turnAngle(90.0);
+            robot.driveYDistanceStraight(-2.9);
             robot.purplePixelPlacement();
             robot.removeClaw();
             robot.purplePixelClose();
             robot.flipArmUp();
-            robot.driveYDistanceStraight(-(moveToSpike - 1.5));
+            robot.driveYDistanceStraight(2.9);
+            robot.turnAngle(-180.0);
+            // robot.driveXDistanceStraight(-(moveToSpike - 38.1)); Far side only
+            robot.driveYDistanceStraight(-());
+
+
             /*            robot.turnAngle(90.0);
             robot.purplePixelPlacement();
             robot.removeClaw();

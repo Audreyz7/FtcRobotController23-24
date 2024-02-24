@@ -51,7 +51,7 @@ public class    A4Intake extends A3LinearSlide{
     }
 
     public void clawLeftOpen(boolean left_bumper) {
-        boolean active = false;
+        boolean active = true;
         if (!left_bumper) {
             active = false;
         }
@@ -70,7 +70,7 @@ public class    A4Intake extends A3LinearSlide{
     }
 
     public void clawRightOpen(boolean right_bumper) {
-        boolean active = false;
+        boolean active = true;
         if (!right_bumper) {
             active = false;
         }
