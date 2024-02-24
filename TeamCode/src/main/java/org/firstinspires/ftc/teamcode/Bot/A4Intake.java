@@ -41,7 +41,7 @@ public class    A4Intake extends A3LinearSlide{
         clawOpenRight = ahwMap.get(Servo.class, "clawRight");
 
         armRotationLeft.setDirection(Servo.Direction.REVERSE);
-        clawOpenLeft.setDirection(Servo.Direction.REVERSE);
+        //clawOpenLeft.setDirection(Servo.Direction.REVERSE);
         //clawOpenRight.setDirection(Servo.Direction.REVERSE);
 
         clawOpenLeft.setPosition(clawStart);

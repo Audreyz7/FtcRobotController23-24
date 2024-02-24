@@ -51,6 +51,8 @@ public class CloseRedAuto extends LinearOpMode {
 
         } else {
             //Center
+
+            robot.driveYDistanceStraight(-(124.6));
         }
     }
 }

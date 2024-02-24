@@ -96,8 +96,8 @@ public class TeleOpMode extends LinearOpMode {
             telemetry.addData("posl", robot.clawOpenLeft.getPosition());
             telemetry.addData("posr", robot.clawOpenRight.getPosition());
             /******claw set position - for putting prongs on******/
-            robot.clawOpenLeft.setPosition(0.52);
-            robot.clawOpenRight.setPosition(0.52);
+            //robot.clawOpenLeft.setPosition(0.52);
+            //robot.clawOpenRight.setPosition(0.52);
             telemetry.update();
         }
     }
