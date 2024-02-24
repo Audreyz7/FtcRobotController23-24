@@ -86,7 +86,7 @@ public class TeleOpMode extends LinearOpMode {
              telemetry.addData("Org", robot.droneLaunchServo.getPosition());
              robot.droneLaunchServo.setPosition(leftY);
              telemetry.addData("Drone position", robot.droneLaunchServo.getPosition());
-             /******Claw Test******/
+             /******Claw Test******
             double position = Deadband(Math.max(0, gamepad2.left_stick_y));
             double position2 = Deadband(Math.max(0, gamepad2.right_stick_y));
             clawOpenTestLeft(position);
@@ -96,8 +96,8 @@ public class TeleOpMode extends LinearOpMode {
             telemetry.addData("posl", robot.clawOpenLeft.getPosition());
             telemetry.addData("posr", robot.clawOpenRight.getPosition());
             /******claw set position - for putting prongs on******/
-            //robot.clawOpenLeft.setPosition(0.52);
-            //robot.clawOpenRight.setPosition(0.52);
+            robot.clawOpenLeft.setPosition(0.52);
+            robot.clawOpenRight.setPosition(0.52);
             telemetry.update();
         }
     }
