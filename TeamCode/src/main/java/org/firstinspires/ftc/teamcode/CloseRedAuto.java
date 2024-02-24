@@ -14,45 +14,144 @@ public class CloseRedAuto extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
         //1 matt length: 609.6 mm
-        //Starting wheel position from back: 228.2mm
-        //Starting pos to end matt: 381.4
-        //Space from end matt to center tape:584.2
-        double clawTipToWheel = 506;
-        double moveToSpike = 78.2+381.4;
-        double moveForwardCenter = 0;
+        //Close pos 1 matt between spike matt and board
+        //Far pos 3 matts between spike matt and board
+        //Board from edge of matt 342.9mm
+        //Starting wheel position from back (Back to middle wheel center): 228.2 mm
+        //Wheel displacement from center to side (front wheel center to left side): 192 mm
+        //Starting pos to end matt: 381.4mm
+        //Space from end matt to center tape: 584.2mm
+        //Left spike bd position from inside(moving under truss close to board): 482.6 mm
+        //Center spike bd position from inside: 304.8 mm
+        //Right spike bd position from inside: 127 mm
+        //Length of truss supports: 1 beam leave space: 38.1mm
+        //Length of tape
+        //All measurements in mm
+        //Center of rotation should not change when rotating
+        //Long 6x* just delete the last "/" or add it back to comment and uncomment code
+        /******I'll set up everything, and it will be up to you guys to calculate it******/
+        //double clawTipToWheel = 506;
+        double moveToSpike = 485.0; //609.6-228.2+609.6-25.4-506+25.4
+        double moveSpikeLeft = 76.2; //3 inches
+        double moveBoardLeft = 254.4; //482.6-228.2
+        double leftPark = 897.6;//609.6+480-192
+        //double moveSpikeCenter =  485.0; //609.6-228.2+609.6-25.4-506+25.4
+        double moveBoardCenter = 0; //May need change
+        double centerPark = 717.6; //609.6+300-192
+        double moveSpikeRight = 76.2;
+        double moveBoardRight = 544.6; //609.6-192+127
+        double rightPark = 544.6;
+        double closeMovetoBoard = 459.6; //609.6-228.2+584.2-506
+        double farMovetoBoard = 0;
+        int retractPosition = 0; //need to configure
         robot.resetEncoders();
         waitForStart();
-        robot.driveYDistanceStraight(moveToSpike);
         if (isStopRequested()) {
             return;
         }
+        robot.driveYDistanceStraight(moveToSpike);
+        //Moves forward onto the spiked tile
         if (robot.getPropPosition() == A6PropPosition.LEFT) {
+            telemetry.addData("Prop Position:", A6PropPosition.LEFT);
+            //Turns onto the left spike
+            robot.resetEncoders();
             robot.turnAngle(90.0);
-            robot.driveYDistanceStraight(-2.9);
+            //Move to hover over spike, may need to be be 0
+            robot.resetEncoders();
+            robot.driveYDistanceStraight(-(moveSpikeLeft));
+            //Put down pixel & retract arm safely
             robot.purplePixelPlacement();
             robot.removeClaw();
             robot.purplePixelClose();
             robot.flipArmUp();
-            robot.driveYDistanceStraight(2.9);
+            //Moves to original position
+            robot.resetEncoders();
+            robot.driveYDistanceStraight(moveSpikeLeft);
+            // turns straight towards backboard
+            robot.resetEncoders();
             robot.turnAngle(-180.0);
-            // robot.driveXDistanceStraight(-(moveToSpike - 38.1)); Far side only
-            robot.driveYDistanceStraight(-());
-
-
-            /*            robot.turnAngle(90.0);
-            robot.purplePixelPlacement();
-            robot.removeClaw();
-            robot.purplePixelClose();
-            robot.flipArmUp();
-            robot.driveYDistanceStraight();
-            robot.turnAngle(-90.0);*/
+            //drives towards backboard
+            robot.resetEncoders();
+            robot.driveYDistanceStraight(closeMovetoBoard);
+            //move infront of backboard placement position
+            robot.resetEncoders();
+            robot.driveXDistanceStraight(moveBoardLeft);
+            //places yellow pixel
+            robot.resetEncoders();
+            robot.yellowPixelPlacement();
+            //retracts vipers
+            robot.climbRetract(retractPosition);
+            //moves to parking sport at fence side, may drift
+            robot.resetEncoders();
+            robot.driveXDistanceStraight(-(leftPark));
+            //moves forward, ignoring drift/ parks
+            robot.resetEncoders();
+            robot.driveYDistanceStraight(580);
         }
         if (robot.getPropPosition() == A6PropPosition.RIGHT) {
-
+            telemetry.addData("Prop Position:", A6PropPosition.RIGHT);
+            //turns right
+            robot.resetEncoders();
+            robot.turnAngle(-90.0);
+            //move to hover over spike
+            robot.resetEncoders();
+            robot.driveYDistanceStraight(moveSpikeRight);
+            //place purple
+            robot.purplePixelPlacement();
+            robot.removeClaw();
+            robot.purplePixelClose();
+            robot.flipArmUp();
+            //move to original position
+            robot.resetEncoders();
+            robot.driveYDistanceStraight(-(moveSpikeRight));
+            //goes back to original
+            robot.resetEncoders();
+            robot.driveXDistanceStraight(-521.2); //485.0+228.2-192
+            //drive to backboard
+            robot.resetEncoders();
+            robot.driveYDistanceStraight(closeMovetoBoard);
+            //move to position
+            robot.resetEncoders();
+            robot.driveXDistanceStraight(moveBoardRight);
+            //yellow pacement
+            robot.resetEncoders();
+            robot.yellowPixelPlacement();
+            //retracts vipers
+            robot.climbRetract(retractPosition);
+            //moves to park
+            robot.resetEncoders();
+            robot.driveXDistanceStraight(-(rightPark));
+            //park
+            robot.resetEncoders();
+            robot.driveYDistanceStraight(580);
         } else {
-            //Center
-
-            robot.driveYDistanceStraight(-(124.6));
+            telemetry.addData("Prop Position:", A6PropPosition.CENTER);
+            //move to center spike already
+            //Put down pixel & retract arm safely
+            robot.purplePixelPlacement();
+            robot.removeClaw();
+            robot.purplePixelClose();
+            robot.flipArmUp();
+            //Move to backdrop
+            robot.resetEncoders();
+            robot.turnAngle(-90.0);
+            //Move to backdrop
+            robot.resetEncoders();
+            robot.driveYDistanceStraight(closeMovetoBoard);
+            //align board center
+            robot.resetEncoders();
+            robot.driveXDistanceStraight(moveBoardCenter);
+            //yellow pixel palcement
+            robot.resetEncoders();
+            robot.yellowPixelPlacement();
+            //retracts vipers
+            robot.climbRetract(retractPosition);
+            //drive to fence
+            robot.resetEncoders();
+            robot.driveXDistanceStraight(-(centerPark));
+            //park
+            robot.resetEncoders();
+            robot.driveYDistanceStraight(580);
         }
     }
 }

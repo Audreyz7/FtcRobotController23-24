@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.drivebase.HDrive;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
@@ -17,6 +18,7 @@ public class A8AutoBase extends A7VisionPortal {
         super(opMode);
     }
 
+    int extension = 0; //configure vipers
     public void init(HardwareMap ahwMap) {
         super.init(ahwMap);
         backDrive.setInverted(false);
@@ -80,10 +82,10 @@ public class A8AutoBase extends A7VisionPortal {
             backDrive.setRunMode(Motor.RunMode.RawPower);
             leftDrive.setRunMode(Motor.RunMode.RawPower);
             rightDrive.setRunMode(Motor.RunMode.RawPower);
-            frontDrive.set(0.5);
-            backDrive.set(0.5);
-            leftDrive.set(0.5);
-            rightDrive.set(0.5);
+            frontDrive.set(0.7);
+            backDrive.set(0.7);
+            leftDrive.set(0.7);
+            rightDrive.set(0.7);
         }
     }
 
@@ -94,8 +96,7 @@ public class A8AutoBase extends A7VisionPortal {
     }
 
     public void yellowPixelPlacement() {
-        double a = 0.52;
-        int extension = 0;
+        double a = 0.52; //set left claw position (get from teleop
         leftViper.setTargetPosition(extension);
         rightViper.setTargetPosition(extension);
         clawOpenLeft.setPosition(a);
@@ -107,11 +108,12 @@ public class A8AutoBase extends A7VisionPortal {
     }
 
     public void purplePixelPlacement() {
-        double a = 0.52; //open
+        double a = 0.52; //open //set right claw position (get from teleop
         clawOpenRight.setPosition(a);
     }
 
     public void purplePixelClose() {
+        //check with teleop
         clawOpenRight.setPosition(0);
     }
 
@@ -133,15 +135,15 @@ public class A8AutoBase extends A7VisionPortal {
     public void SetPowerLeft() {
         frontDrive.setRunMode(Motor.RunMode.RawPower);
         backDrive.setRunMode(Motor.RunMode.RawPower);
-        frontDrive.set(0.5);
-        backDrive.set(0.5);
+        frontDrive.set(0.7);
+        backDrive.set(0.7);
     }
 
     public void SetPowerStraight() {
         leftDrive.setRunMode(Motor.RunMode.RawPower);
         rightDrive.setRunMode(Motor.RunMode.RawPower);
-        leftDrive.set(0.5);
-        rightDrive.set(0.5);
+        leftDrive.set(0.7);
+        rightDrive.set(0.7);
     }
 
     public void SetPowerZero() {
@@ -160,5 +162,9 @@ public class A8AutoBase extends A7VisionPortal {
         rightDrive.resetEncoder();
         frontDrive.resetEncoder();
         backDrive.resetEncoder();
+        leftViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftViper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightViper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }

@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name = "Tele op Mode", group = "TeleOp")
 public class TeleOpMode extends LinearOpMode {
+    //Long 6x* just delete the last "/" or add it back to comment and uncomment code
+    /******Remember to debug the claw, and figure out the positions******/
     private A4Intake robot = new A4Intake(this);
     private ElapsedTime runtime = new ElapsedTime();
     //? Telemetry opmode_telemetry;
@@ -86,7 +88,7 @@ public class TeleOpMode extends LinearOpMode {
              telemetry.addData("Org", robot.droneLaunchServo.getPosition());
              robot.droneLaunchServo.setPosition(leftY);
              telemetry.addData("Drone position", robot.droneLaunchServo.getPosition());
-             /******Claw Test******
+             /******Claw Test******/
             double position = Deadband(Math.max(0, gamepad2.left_stick_y));
             double position2 = Deadband(Math.max(0, gamepad2.right_stick_y));
             clawOpenTestLeft(position);
@@ -95,9 +97,9 @@ public class TeleOpMode extends LinearOpMode {
             telemetry.addData("dirr", robot.clawOpenRight.getDirection());
             telemetry.addData("posl", robot.clawOpenLeft.getPosition());
             telemetry.addData("posr", robot.clawOpenRight.getPosition());
-            /******claw set position - for putting prongs on******/
+            /******claw set position - for putting prongs on******
             robot.clawOpenLeft.setPosition(0.52);
-            robot.clawOpenRight.setPosition(0.52);
+            robot.clawOpenRight.setPosition(0.52); */
             telemetry.update();
         }
     }
