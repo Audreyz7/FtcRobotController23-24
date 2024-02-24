@@ -13,8 +13,12 @@ public class CloseRedAuto extends LinearOpMode {
     private A8AutoBase robot = new A8AutoBase(this);
 
     public void runOpMode() throws InterruptedException {
-        double pmtcw = 506;
-        double moveToSpike = 78.2+381.4; //(584.2-pmtcw-20) + 381.4
+        //1 matt length: 609.6 mm
+        //Starting wheel position from back: 228.2mm
+        //Starting pos to end matt: 381.4
+        //Space from end matt to center tape:584.2
+        double clawTipToWheel = 506;
+        double moveToSpike = 78.2+381.4;
         double moveForwardCenter = 0;
         robot.resetEncoders();
         waitForStart();

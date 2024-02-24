@@ -13,20 +13,6 @@ public class CloseBlueAuto extends LinearOpMode{
     private A8AutoBase robot = new A8AutoBase(this);
 
     public void runOpMode() throws InterruptedException {
-        //1 matt length: 609.6 mm
-        //Starting wheel position from back: 228.2mm
-        //Starting pos to end matt: 381.4
-        //Space from end matt to center tape:584.2
-        //Move forward after
-        //Space need to move: (584.2 - pixel middle to center wheel) + 381.4
-        //rotate -> place pixel, flip arm up
-        //Go to starting pos, not fully, avoding the truss
-        //rotate, to straight
-        // move to pixel palcement
-        // extend vipers -> place
-        // retract move sideways towards wall
-        // moveforward -> park
-
         /*
         robot.leftDrive.resetEncoder();
         robot.rightDrive.resetEncoder();

@@ -71,16 +71,16 @@ public class    A4Intake extends A3LinearSlide{
 
     public void clawRightOpen(boolean right_bumper) {
         boolean active = true;
-        if (!right_bumper) {
-            active = false;
-        }
-        if (right_bumper && clawRightOpen && !active) {
+        //if (!right_bumper) {
+            //active = false;
+        //}
+        if (right_bumper && !clawRightOpen) {
             //open
             clawOpenRight.setPosition(clawPositionmaxRight);
             clawRightOpen = true;
             active = true;
         }
-        if (right_bumper && !clawRightOpen && !active) {
+        if (right_bumper && clawRightOpen) {
             // close
             clawOpenRight.setPosition(clawPositionmaxRight);
             clawRightOpen = false;
