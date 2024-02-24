@@ -51,28 +51,40 @@ public class    A4Intake extends A3LinearSlide{
     }
 
     public void clawLeftOpen(boolean left_bumper) {
-        if (left_bumper) {
+        boolean active = false;
+        if (!left_bumper) {
+            active = false;
+        }
+        if (left_bumper && clawLeftOpen && !active) {
             //open
             clawOpenLeft.setPosition(clawPositionmaxLeft);
             clawLeftOpen = true;
+            active = true;
         }
-        if (clawLeftOpen && left_bumper) {
-            //close
-            clawOpenLeft.setPosition(clawPositionminLeft);
+        if (left_bumper && !clawLeftOpen && !active) {
+            // close
+            clawOpenLeft.setPosition(clawPositionmaxLeft);
             clawLeftOpen = false;
+            active = true;
         }
     }
 
     public void clawRightOpen(boolean right_bumper) {
-        if (right_bumper) {
-            //open
-            clawOpenRight.setPosition(clawPositionmaxRight);
-            clawRightOpen = true;
+        boolean active = false;
+        if (!right_bumper) {
+            active = false;
         }
-        if (clawRightOpen && right_bumper) {
-            //close
-            clawOpenRight.setPosition(clawPositionminRight);
-            clawRightOpen = false;
+        if (right_bumper && clawLeftOpen && !active) {
+            //open
+            clawOpenLeft.setPosition(clawPositionmaxRight);
+            clawLeftOpen = true;
+            active = true;
+        }
+        if (right_bumper && !clawLeftOpen && !active) {
+            // close
+            clawOpenLeft.setPosition(clawPositionmaxRight);
+            clawLeftOpen = false;
+            active = true;
         }
     }
 

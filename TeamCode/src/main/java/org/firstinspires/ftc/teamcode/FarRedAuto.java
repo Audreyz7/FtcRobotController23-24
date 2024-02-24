@@ -15,6 +15,7 @@ public class FarRedAuto extends LinearOpMode{
         if (isStopRequested()) {
             return;
         }
+
         if (robot.getPropPosition() == A6PropPosition.LEFT) {
 
         }

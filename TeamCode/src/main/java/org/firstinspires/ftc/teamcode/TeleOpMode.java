@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class TeleOpMode extends LinearOpMode {
     private A4Intake robot = new A4Intake(this);
     private ElapsedTime runtime = new ElapsedTime();
-    Telemetry opmode_telemetry;
+    //? Telemetry opmode_telemetry;
 
     public int climbExtension = 0;
     public int climbRetract = 0;
@@ -33,23 +33,14 @@ public class TeleOpMode extends LinearOpMode {
         /******Make sure all devices connected******/
         //telemetry.update();
 
-        /*public double Deadband(double d) {
-            if (Math.abs(d) < 0.05) {
-                return 0;
-            }
-            else {
-                return d;
-            }
-        }*/
-
         waitForStart();
         runtime.reset();
 
         while (opModeIsActive()) {
             /******Drive****** //Debug
-             double y1 = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-             double x1 = gamepad1.left_stick_x;
-             double rx1 = gamepad1.right_stick_x;
+             double y1 = Deadband(-gamepad1.left_stick_y);  // Note: pushing stick forward gives negative value
+             double x1 = Deadband(gamepad1.left_stick_x);
+             double rx1 = Deadband(gamepad1.right_stick_x);
              robot.handDrive(y1,x1,rx1);
              telemetry.addLine("Drive initialized");
 
@@ -63,7 +54,7 @@ public class TeleOpMode extends LinearOpMode {
                 robot.droneReset(DroneOrg);
              }
              /******Viper extension*****
-             double y2 = -gamepad2.left_stick_y;
+             double y2 = Deadband(-gamepad2.left_stick_y);
              robot.extension(y2);
              robot.leftViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
              robot.rightViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -91,15 +82,13 @@ public class TeleOpMode extends LinearOpMode {
              robot.climbHeight(gamepad2.b, climbExtension);
              robot.climbRetract(gamepad2.a, climbRetract);;
              /******Testing: droneLauncher******/
-             double leftY = -gamepad1.left_stick_y;
+             double leftY = Deadband(Math.max(0, gamepad1.left_stick_y));
              telemetry.addData("Org", robot.droneLaunchServo.getPosition());
              robot.droneLaunchServo.setPosition(leftY);
-             if (gamepad1.left_bumper) {
              telemetry.addData("Drone position", robot.droneLaunchServo.getPosition());
-             }
              /******Claw Test******/
-            double position = -gamepad2.left_stick_y;
-            double position2 = -gamepad2.right_stick_y;
+            double position = Deadband(Math.max(0, gamepad2.left_stick_y));
+            double position2 = Deadband(Math.max(0, gamepad2.right_stick_y));
             clawOpenTestLeft(position);
             clawOpenTestRight(position2);
             telemetry.addData("dirl", robot.clawOpenLeft.getDirection());
@@ -107,12 +96,20 @@ public class TeleOpMode extends LinearOpMode {
             telemetry.addData("posl", robot.clawOpenLeft.getPosition());
             telemetry.addData("posr", robot.clawOpenRight.getPosition());
             /******claw set position - for putting prongs on******/
-             robot.clawOpenLeft.setPosition(0.52);
-             robot.clawOpenRight.setPosition(0.52);
+            robot.clawOpenLeft.setPosition(0.52);
+            robot.clawOpenRight.setPosition(0.52);
             telemetry.update();
         }
     }
 
+    public double Deadband(double d) {
+        if (Math.abs(d) < 0.02) {
+            return 0;
+        }
+        else {
+            return d;
+        }
+    }
 
     public void clawOpenTestLeft(double pos) {
         robot.clawOpenLeft.setPosition(pos);

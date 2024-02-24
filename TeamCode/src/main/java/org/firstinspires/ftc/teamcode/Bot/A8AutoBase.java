@@ -47,29 +47,24 @@ public class A8AutoBase extends A7VisionPortal {
 
     }
 
-    public void driveYDistanceStraight(double distance, double rotationy) {
+    public void driveYDistanceStraight(double distance) {
         //Forward,backward movement
         //1 rotation = 301.6 mm
         // 537.6 pulses per rotation
         //each tile is 24 inches = 609.6
-        double dpp = 301.6/577.6;
-        leftDrive.resetEncoder();
-        rightDrive.resetEncoder();
         double rotations = distance/301.6;
         SetPowerStraight();
-        if (rotationy == rotations) {
+        if (leftDrive.encoder.getRevolutions() == rotations) {
             SetPowerZero();
         }
     }
 
-    public void driveXDistanceStraight(double distance, double rotationx) {
+    public void driveXDistanceStraight(double distance) {
         //Left, right mvoement
-        double dpp = 301.6/577.6;
-        frontDrive.resetEncoder();
-        backDrive.resetEncoder();
+        //double dpp = 301.6/577.6;
         double rotations = distance/301.6;
         SetPowerLeft();
-        if (rotationx == rotations) {
+        if (backDrive.encoder.getRevolutions() == rotations) {
             SetPowerZero();
         }
     }
@@ -92,18 +87,31 @@ public class A8AutoBase extends A7VisionPortal {
         }
     }
 
-    public void yellowPixelPlacement() {
-        double a = 0.52;
+    public void flipArmUp() {
         double b = 0.74;
         armRotationLeft.setPosition(b);
         armRotationRight.setPosition(b);
+    }
+
+    public void yellowPixelPlacement() {
+        double a = 0.52;
+        int extension = 0;
+        leftViper.setTargetPosition(extension);
+        rightViper.setTargetPosition(extension);
+        clawOpenLeft.setPosition(a);
+    }
+
+    public void removeClaw() {
+        double a = 0.30;
         clawOpenRight.setPosition(a);
     }
 
     public void purplePixelPlacement() {
-        double a = 0.52;
+        double a = 0.52; //open
         clawOpenRight.setPosition(a);
-        sleep(1000);
+    }
+
+    public void purplePixelClose() {
         clawOpenRight.setPosition(0);
     }
 
@@ -145,5 +153,12 @@ public class A8AutoBase extends A7VisionPortal {
         backDrive.set(0);
         leftDrive.set(0);
         rightDrive.set(0);
+    }
+
+    public void resetEncoders() {
+        leftDrive.resetEncoder();
+        rightDrive.resetEncoder();
+        frontDrive.resetEncoder();
+        backDrive.resetEncoder();
     }
 }
