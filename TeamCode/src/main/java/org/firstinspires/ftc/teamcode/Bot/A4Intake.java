@@ -49,8 +49,8 @@ public class    A4Intake extends A3LinearSlide{
         armRotationRight.setPosition(0.74);
         armRotationLeft.setPosition(0.74);
         sleep(2000);
-        armRotationRight.setPosition(armStart);
-        armRotationLeft.setPosition(armStart);
+        armRotationRight.setPosition(0);
+        armRotationLeft.setPosition(0);
 
     }
 
