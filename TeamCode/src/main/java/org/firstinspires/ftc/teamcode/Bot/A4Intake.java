@@ -46,8 +46,8 @@ public class    A4Intake extends A3LinearSlide{
 
         clawOpenLeft.setPosition(1);
         clawOpenRight.setPosition(clawStart);
-        armRotationRight.setPosition(0.74);
-        armRotationLeft.setPosition(0.74);
+        armRotationRight.setPosition(1);
+        armRotationLeft.setPosition(1);
         sleep(2000);
         armRotationRight.setPosition(0);
         armRotationLeft.setPosition(0);
@@ -74,7 +74,7 @@ public class    A4Intake extends A3LinearSlide{
 
     public void ArmRotation (double position) {
         double minArmPosition = 0;
-        double maxArmPosition = 0.74;
+        double maxArmPosition = 1;
         // scales the position to a value between minArmPosition and maxArmPosition
         double scaled_position = (maxArmPosition - minArmPosition) * Math.min(1, Math.max(0, position)) + minArmPosition;
         armRotationLeft.setPosition(scaled_position);

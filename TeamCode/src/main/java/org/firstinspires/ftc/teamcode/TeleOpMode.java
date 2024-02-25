@@ -78,10 +78,10 @@ public class TeleOpMode extends LinearOpMode {
              telemetry.addData("posl", robot.armRotationLeft.getPosition());
              telemetry.addData("posr", robot.armRotationRight.getPosition());
              /*****Arm Retract Position******/
-             double armPosition = 0.74;
              if(gamepad2.x) {
-                 robot.armRotationRight.setPosition(armPosition);
-                 robot.armRotationLeft.setPosition(armPosition);
+                 ArmPos = 1;
+                 robot.armRotationRight.setPosition(ArmPos);
+                 robot.armRotationLeft.setPosition(ArmPos);
              }
              /******Climb height***** //Test with truss, Can be hand tuned
              robot.leftViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
