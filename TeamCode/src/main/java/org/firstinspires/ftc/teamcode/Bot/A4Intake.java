@@ -41,65 +41,43 @@ public class    A4Intake extends A3LinearSlide{
         clawOpenRight = ahwMap.get(Servo.class, "clawRight");
 
         armRotationLeft.setDirection(Servo.Direction.REVERSE);
-        //clawOpenLeft.setDirection(Servo.Direction.REVERSE);
+        clawOpenLeft.setDirection(Servo.Direction.REVERSE);
         //clawOpenRight.setDirection(Servo.Direction.REVERSE);
 
         clawOpenLeft.setPosition(clawStart);
         clawOpenRight.setPosition(clawStart);
+        armRotationRight.setPosition(0.74);
+        armRotationLeft.setPosition(0.74);
+        sleep(2000);
         armRotationRight.setPosition(armStart);
         armRotationLeft.setPosition(armStart);
+
     }
 
     public void clawLeftOpen(boolean left_bumper) {
-        boolean active = true;
-        if (!left_bumper) {
-            active = false;
-        }
-        if (left_bumper && clawLeftOpen && !active) {
-            //open
+        if (left_bumper) {
             clawOpenLeft.setPosition(clawPositionmaxLeft);
-            clawLeftOpen = true;
-            active = true;
         }
-        if (left_bumper && !clawLeftOpen && !active) {
-            // close
-            clawOpenLeft.setPosition(clawPositionmaxLeft);
-            clawLeftOpen = false;
-            active = true;
+        else {
+            clawOpenLeft.setPosition(clawPositionminLeft);
         }
     }
 
     public void clawRightOpen(boolean right_bumper) {
-        boolean active = true;
-        //if (!right_bumper) {
-            //active = false;
-        //}
-        if (right_bumper && !clawRightOpen) {
-            //open
+        if (right_bumper) {
             clawOpenRight.setPosition(clawPositionmaxRight);
-            clawRightOpen = true;
-            active = true;
         }
-        if (right_bumper && clawRightOpen) {
-            // close
-            clawOpenRight.setPosition(clawPositionmaxRight);
-            clawRightOpen = false;
-            active = true;
+        else {
+            clawOpenRight.setPosition(clawPositionminRight);
         }
     }
 
     public void ArmRotation (double position) {
-        position = (position + 1) / 2;
-        if (position >= armPositionmax) {
-            armRotationLeft.setPosition(armPositionmax);
-            armRotationRight.setPosition(armPositionmax);
-        }
-        if (position <= armPositionmin) {
-            armRotationLeft.setPosition(armPositionmin);
-            armRotationRight.setPosition(armPositionmin);
-        } else {
-            armRotationLeft.setPosition(position);
-            armRotationRight.setPosition(position);
-        }
+        double minArmPosition = 0;
+        double maxArmPosition = 0.74;
+        // scales the position to a value between minArmPosition and maxArmPosition
+        double scaled_position = (maxArmPosition - minArmPosition) * Math.min(1, Math.max(0, position)) + minArmPosition;
+        armRotationLeft.setPosition(scaled_position);
+        armRotationRight.setPosition(scaled_position);
     }
 }
