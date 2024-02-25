@@ -156,15 +156,4 @@ public class A8AutoBase extends A7VisionPortal {
         leftDrive.set(0);
         rightDrive.set(0);
     }
-
-    public void resetEncoders() {
-        leftDrive.resetEncoder();
-        rightDrive.resetEncoder();
-        frontDrive.resetEncoder();
-        backDrive.resetEncoder();
-        leftViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftViper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightViper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    }
 }

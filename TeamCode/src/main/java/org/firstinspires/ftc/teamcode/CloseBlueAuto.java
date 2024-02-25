@@ -5,6 +5,7 @@ import org.firstinspires.ftc.teamcode.Bot.A8AutoBase;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -26,7 +27,7 @@ public class CloseBlueAuto extends LinearOpMode{
         double closeMovetoBoard = 459.6; //609.6-228.2+584.2-506
         double farMovetoBoard = 0;
         int retractPosition = 0; //need to configure
-        robot.resetEncoders();
+        resetEncoders();
         waitForStart();
         if (isStopRequested()) {
             return;
@@ -35,10 +36,10 @@ public class CloseBlueAuto extends LinearOpMode{
         if(robot.getPropPosition() == A6PropPosition.LEFT ) {
             telemetry.addData("Prop Position:", A6PropPosition.LEFT);
             //turns left
-            robot.resetEncoders();
+            resetEncoders();
             robot.turnAngle(-90.0);
             //move to hover over spike
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveYDistanceStraight(moveSpikeLeft );
             //place purple
             robot.purplePixelPlacement();
@@ -46,36 +47,36 @@ public class CloseBlueAuto extends LinearOpMode{
             robot.purplePixelClose();
             robot.flipArmUp();
             //move to original position
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveYDistanceStraight(-(moveSpikeLeft));
             //goes back to original
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveXDistanceStraight(521.2); //485.0+228.2-192
             //drive to backboard
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveYDistanceStraight(closeMovetoBoard);
             //move to position
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveXDistanceStraight(-(moveBoardLeft));
             //yellow pacement
-            robot.resetEncoders();
+            resetEncoders();
             robot.yellowPixelPlacement();
             //retracts vipers
             robot.climbRetract(retractPosition);
             //moves to park
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveXDistanceStraight(leftPark);
             //park
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveYDistanceStraight(580);
         }
         if(robot.getPropPosition() == A6PropPosition.RIGHT) {
             telemetry.addData("Prop Position:", A6PropPosition.RIGHT);
             //Turns right
-            robot.resetEncoders();
+            resetEncoders();
             robot.turnAngle(-90.0);
             //Move to hover over spike, may need to be be 0
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveYDistanceStraight(-(moveSpikeRight));
             //Put down pixel & retract arm safely
             robot.purplePixelPlacement();
@@ -83,27 +84,27 @@ public class CloseBlueAuto extends LinearOpMode{
             robot.purplePixelClose();
             robot.flipArmUp();
             //Moves to original position
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveYDistanceStraight(moveSpikeRight);
             // turns straight towards backboard
-            robot.resetEncoders();
+            resetEncoders();
             robot.turnAngle(-180.0);
             //drives towards backboard
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveYDistanceStraight(closeMovetoBoard);
             //move infront of backboard placement position
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveXDistanceStraight(-(moveBoardRight));
             //places yellow pixel
-            robot.resetEncoders();
+            resetEncoders();
             robot.yellowPixelPlacement();
             //retracts vipers
             robot.climbRetract(retractPosition);
             //moves to parking sport at fence side, may drift
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveXDistanceStraight(rightPark);
             //moves forward, ignoring drift/ parks
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveYDistanceStraight(580);
         }
         else {
@@ -115,25 +116,36 @@ public class CloseBlueAuto extends LinearOpMode{
             robot.purplePixelClose();
             robot.flipArmUp();
             //Move to backdrop
-            robot.resetEncoders();
+            resetEncoders();
             robot.turnAngle(90.0);
             //Move to backdrop
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveYDistanceStraight(closeMovetoBoard);
             //align board center
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveXDistanceStraight(-(moveBoardCenter));
             //yellow pixel palcement
-            robot.resetEncoders();
+            resetEncoders();
             robot.yellowPixelPlacement();
             //retracts vipers
             robot.climbRetract(retractPosition);
             //drive to fence
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveXDistanceStraight(centerPark);
             //park
-            robot.resetEncoders();
+            resetEncoders();
             robot.driveYDistanceStraight(580);
         }
+    }
+
+    public void resetEncoders() {
+        robot.leftDrive.resetEncoder();
+        robot.rightDrive.resetEncoder();
+        robot.frontDrive.resetEncoder();
+        robot.backDrive.resetEncoder();
+        robot.leftViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftViper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightViper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }
