@@ -28,26 +28,22 @@ public class TeleOpMode extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         //Telemetry telemetry = new Telemetry;
         boolean launcher = false;
-
-        //telemetry.addLine("Hello?");
-        // initializes all the hardware by chaining through the human centipede type inheritance you got here.
         robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
-        /******Make sure all devices connected******/
-        //telemetry.update();
+        telemetry.update();
 
         waitForStart();
         runtime.reset();
 
         while (opModeIsActive()) {
             /******Drive******/ //Debug
-             double y1 = Deadband(-gamepad1.left_stick_y);  // Note: pushing stick forward gives negative value
+             double y1 = Deadband(-gamepad1.left_stick_y);
              double x1 = Deadband(gamepad1.left_stick_x);
              double rx1 = Deadband(gamepad1.right_stick_x);
              robot.handDrive(y1,x1,rx1);
              telemetry.addLine("Drive initialized");
 
-             /******Drone launch******/ //Deadzone
+             /******Drone launch******/
              if (gamepad1.a) {
                 robot.launchDrone(DronePos);
                 launcher = true;
@@ -81,6 +77,12 @@ public class TeleOpMode extends LinearOpMode {
              robot.ArmRotation(ArmPos);
              telemetry.addData("posl", robot.armRotationLeft.getPosition());
              telemetry.addData("posr", robot.armRotationRight.getPosition());
+             /*****Arm Retract Position******/
+             double armPosition = 0.74;
+             if(gamepad2.x) {
+                 robot.armRotationRight.setPosition(armPosition);
+                 robot.armRotationLeft.setPosition(armPosition);
+             }
              /******Climb height***** //Test with truss, Can be hand tuned
              robot.leftViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
              robot.rightViper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
